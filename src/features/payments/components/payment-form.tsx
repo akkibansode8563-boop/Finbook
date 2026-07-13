@@ -162,7 +162,20 @@ export function PaymentForm({
         <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Record payment receipts, allocate splits, and update schedules.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          onSubmit={handleSubmit(
+            (data) => onSubmit(data),
+            (errs) => {
+              console.error('Validation Errors:', errs);
+              const firstErrorKey = Object.keys(errs)[0];
+              if (firstErrorKey) {
+                const firstError = errs[firstErrorKey as keyof typeof errs];
+                toast.error(`Validation error on ${firstErrorKey}: ${firstError?.message}`);
+              }
+            }
+          )}
+          className="space-y-6"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Loan Selector */}
             <div className="space-y-1.5 md:col-span-2">

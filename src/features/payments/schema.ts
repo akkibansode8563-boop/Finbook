@@ -16,7 +16,7 @@ export const paymentSchema = z.object({
   manualPrincipal: z.string(),
   manualInterest: z.string(),
   manualLateFee: z.string(),
-  manualDiscount: z.string(),
+  manualDiscount: z.string().optional(),
 });
 
 export const settlementSchema = z.object({
