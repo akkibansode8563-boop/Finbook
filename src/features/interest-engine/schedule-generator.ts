@@ -40,34 +40,46 @@ export function generateRepaymentSchedule({
   }
 
   const annualRate = interestRate / 100;
-  let currentDate = new Date(startDate);
+  const baseDate = new Date(startDate);
+  const targetDay = baseDate.getDate();
 
-  // Helper to increment date by frequency
-  const incrementDate = (date: Date) => {
-    const nextDate = new Date(date);
+  const getInstallmentDate = (index: number) => {
+    const newDate = new Date(baseDate);
     if (loanFrequency === 'monthly') {
-      nextDate.setMonth(nextDate.getMonth() + 1);
+      newDate.setDate(1);
+      newDate.setMonth(baseDate.getMonth() + index);
+      const lastDay = new Date(newDate.getFullYear(), newDate.getMonth() + 1, 0).getDate();
+      newDate.setDate(Math.min(targetDay, lastDay));
     } else if (loanFrequency === 'weekly') {
-      nextDate.setDate(nextDate.getDate() + 7);
+      newDate.setDate(baseDate.getDate() + (index * 7));
     } else if (loanFrequency === 'daily') {
-      nextDate.setDate(nextDate.getDate() + 1);
+      newDate.setDate(baseDate.getDate() + index);
     } else if (loanFrequency === 'yearly') {
-      nextDate.setFullYear(nextDate.getFullYear() + 1);
+      newDate.setFullYear(baseDate.getFullYear() + index);
     } else {
-      // Default fallback or custom (1 month)
-      nextDate.setMonth(nextDate.getMonth() + 1);
+      newDate.setDate(1);
+      newDate.setMonth(baseDate.getMonth() + index);
+      const lastDay = new Date(newDate.getFullYear(), newDate.getMonth() + 1, 0).getDate();
+      newDate.setDate(Math.min(targetDay, lastDay));
     }
-    return nextDate;
+    return newDate;
+  };
+
+  const formatDate = (date: Date) => {
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
   };
 
   if (interestType === 'flat') {
     const totalInterest = principalAmount * annualRate;
     const interestPerInstallment = totalInterest / installmentsCount;
     const principalPerInstallment = principalAmount / installmentsCount;
-
+    
     for (let i = 1; i <= installmentsCount; i++) {
-      currentDate = incrementDate(currentDate);
-      const dueDateStr = currentDate.toISOString().split('T')[0];
+      const instDate = getInstallmentDate(i);
+      const dueDateStr = formatDate(instDate);
 
       schedule.push({
         installmentNo: i,
@@ -101,8 +113,8 @@ export function generateRepaymentSchedule({
     let remainingPrincipal = principalAmount;
 
     for (let i = 1; i <= installmentsCount; i++) {
-      currentDate = incrementDate(currentDate);
-      const dueDateStr = currentDate.toISOString().split('T')[0];
+      const instDate = getInstallmentDate(i);
+      const dueDateStr = formatDate(instDate);
 
       const interestDue = remainingPrincipal * r;
       let principalDue = emi - interestDue;
