@@ -2,11 +2,7 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as schema from '../../../drizzle/schema';
 
-const connectionString = process.env.DATABASE_URL;
-
-if (!connectionString) {
-  throw new Error('DATABASE_URL environment variable is missing.');
-}
+const connectionString = process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/postgres";
 
 // Disable prefetch to ensure compatibility with Supabase connection pooling (Transaction Mode)
 export const pgClient = postgres(connectionString, { prepare: false });
