@@ -45,8 +45,8 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
       occupation: '',
       monthlyIncome: '0',
       notes: '',
-      identityDocuments: [{ docType: 'aadhaar', docNumber: '', fileUrl: '' }],
-      bankDetails: [{ bankName: '', accountHolderName: '', accountNumber: '', ifscCode: '', upiId: '', isPrimary: true }],
+      identityDocuments: [],
+      bankDetails: [],
       guarantors: [],
     },
   });
@@ -163,6 +163,11 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
               </Button>
             </CardHeader>
             <CardContent className="space-y-4">
+              {idFields.length === 0 && (
+                <div className="text-center py-6 text-slate-500 text-xs border border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
+                  No KYC documents added yet. Click "Add Document" to add Aadhaar, PAN, etc.
+                </div>
+              )}
               {idFields.map((field, index) => (
                 <div key={field.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-50 dark:bg-slate-950/40 relative">
                   <div className="space-y-1.5">
@@ -222,6 +227,11 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
               </Button>
             </CardHeader>
             <CardContent className="space-y-4">
+              {bankFields.length === 0 && (
+                <div className="text-center py-6 text-slate-500 text-xs border border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
+                  No bank accounts added yet. Click "Add Account" to add payment details.
+                </div>
+              )}
               {bankFields.map((field, index) => (
                 <div key={field.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-50 dark:bg-slate-950/40 relative">
                   <div className="space-y-1.5">
