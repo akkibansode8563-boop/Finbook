@@ -203,7 +203,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Side: Loan Summary */}
         <div className="lg:col-span-1 space-y-6">
-          <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm sticky top-20">
+          <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm sticky top-20">
             <CardHeader className="border-b border-slate-200 dark:border-slate-800/60 pb-4">
               <span className="text-[10px] uppercase font-bold text-violet-400 tracking-wider">Lending Summary</span>
               <div className="flex justify-between items-center mt-2">

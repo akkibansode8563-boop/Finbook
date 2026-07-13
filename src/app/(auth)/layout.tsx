@@ -21,7 +21,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         </div>
 
         {/* Auth form container */}
-        <div className="w-full bg-white/60 dark:bg-slate-100 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 rounded-2xl p-8 shadow-2xl">
+        <div className="w-full bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200 dark:border-slate-800/80 rounded-2xl p-8 shadow-2xl">
           {children}
         </div>
       </div>

@@ -36,7 +36,7 @@ export default async function DashboardPage() {
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* KPI 1: Active Loan Accounts */}
-        <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
+        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Active Accounts</span>
             <div className="w-8 h-8 rounded-lg bg-violet-600/10 border border-violet-500/20 flex items-center justify-center">
@@ -52,7 +52,7 @@ export default async function DashboardPage() {
         </Card>
 
         {/* KPI 2: Total Disbursed */}
-        <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
+        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Total Disbursed</span>
             <div className="w-8 h-8 rounded-lg bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center">
@@ -66,7 +66,7 @@ export default async function DashboardPage() {
         </Card>
 
         {/* KPI 3: Total Collected */}
-        <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
+        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Total Collected</span>
             <div className="w-8 h-8 rounded-lg bg-emerald-600/10 border border-emerald-500/20 flex items-center justify-center">
@@ -80,7 +80,7 @@ export default async function DashboardPage() {
         </Card>
 
         {/* KPI 4: Active Portfolio Outstanding */}
-        <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
+        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Outstanding Balance</span>
             <div className="w-8 h-8 rounded-lg bg-rose-600/10 border border-rose-500/20 flex items-center justify-center">
@@ -103,7 +103,7 @@ export default async function DashboardPage() {
       {/* Bottom Row: Recent Collections & Customer Signups */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Collections */}
-        <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
+        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
           <CardHeader className="border-b border-slate-200 dark:border-slate-800/60 pb-3">
             <CardTitle className="text-slate-900 dark:text-white text-base">Recent Payments Collected</CardTitle>
             <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Repayment receipts logged system-wide today.</CardDescription>
@@ -138,7 +138,7 @@ export default async function DashboardPage() {
         </Card>
 
         {/* Recent Customers */}
-        <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
+        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
           <CardHeader className="border-b border-slate-200 dark:border-slate-800/60 pb-3">
             <CardTitle className="text-slate-900 dark:text-white text-base">Recent Customers Registered</CardTitle>
             <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Customer profiles created recently.</CardDescription>

@@ -127,7 +127,7 @@ export default async function ReportsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {reportTypes.map((rep, idx) => (
-          <Card key={idx} className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
+          <Card key={idx} className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-start justify-between pb-2 space-y-0">
               <div className="space-y-1">
                 <CardTitle className="text-white text-base flex items-center gap-2">

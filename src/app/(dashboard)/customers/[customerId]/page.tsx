@@ -131,7 +131,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Side: Summary Card */}
         <div className="lg:col-span-1 space-y-6">
-          <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm sticky top-20">
+          <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm sticky top-20">
             <CardHeader className="text-center pb-4 border-b border-slate-200 dark:border-slate-800/60">
               <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white text-2xl font-extrabold mx-auto shadow-lg uppercase select-none">
                 {customer.fullName.substring(0, 2)}

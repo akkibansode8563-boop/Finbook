@@ -79,9 +79,9 @@ export function SettingsForm({ initialData }: SettingsFormProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* Profile Card */}
-        <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
+        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-white text-base">Organization Profile</CardTitle>
+            <CardTitle className="text-slate-900 dark:text-white text-base">Organization Profile</CardTitle>
             <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Configure display names, currency, and timezone details.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -142,9 +142,9 @@ export function SettingsForm({ initialData }: SettingsFormProps) {
         </Card>
 
         {/* Repayments & Default rules Card */}
-        <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
+        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-white text-base">Lending & Accounting Policy</CardTitle>
+            <CardTitle className="text-slate-900 dark:text-white text-base">Lending & Accounting Policy</CardTitle>
             <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Set defaults for late fees, interest rounding, and payment splits.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
