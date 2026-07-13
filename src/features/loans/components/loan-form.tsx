@@ -19,6 +19,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatCurrency } from '@/lib/utils/currency';
 import { ArrowRight, ArrowLeft, Coins, Check, Calendar, Info } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface LoanFormProps {
   customers: { id: string; fullName: string; customerCode: string }[];
@@ -443,7 +444,17 @@ export function LoanForm({
               </Button>
               <Button
                 type="button"
-                onClick={handleSubmit(onSubmit)}
+                onClick={handleSubmit(
+                  (data) => onSubmit(data),
+                  (errs) => {
+                    console.error('Validation Errors:', errs);
+                    const firstErrorKey = Object.keys(errs)[0];
+                    if (firstErrorKey) {
+                      const firstError = errs[firstErrorKey as keyof typeof errs];
+                      toast.error(`Validation error on ${firstErrorKey}: ${firstError?.message}`);
+                    }
+                  }
+                )}
                 disabled={isSubmitting}
                 className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold gap-1.5 px-6 shadow-lg shadow-emerald-500/10"
               >
