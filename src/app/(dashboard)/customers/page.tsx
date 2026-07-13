@@ -33,7 +33,7 @@ export default async function CustomersPage({ searchParams }: PageProps) {
       header: 'Full Name',
       accessorKey: 'fullName',
       render: (row: any) => (
-        <span className="font-semibold text-white">{row.fullName}</span>
+        <span className="font-semibold text-slate-900 dark:text-white">{row.fullName}</span>
       ),
     },
     {
@@ -61,7 +61,7 @@ export default async function CustomersPage({ searchParams }: PageProps) {
           href={`/customers/${row.id}`}
           className={cn(
             buttonVariants({ variant: 'ghost', size: 'sm' }),
-            'h-8 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-white gap-1.5'
+            'h-8 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white gap-1.5'
           )}
         >
           <Eye className="w-4 h-4" />

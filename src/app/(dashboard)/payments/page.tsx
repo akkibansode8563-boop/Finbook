@@ -26,7 +26,7 @@ export default async function PaymentsLogPage() {
     {
       header: 'Customer',
       render: (row: any) => (
-        <Link href={`/customers/${row.customer.id}`} className="text-white hover:text-violet-400 font-semibold hover:underline transition-colors">
+        <Link href={`/customers/${row.customer.id}`} className="text-slate-900 dark:text-white hover:text-violet-500 font-semibold hover:underline transition-colors">
           {row.customer.fullName}
         </Link>
       ),
@@ -77,7 +77,7 @@ export default async function PaymentsLogPage() {
           href={`/loans/${row.loan.id}`}
           className={cn(
             buttonVariants({ variant: 'ghost', size: 'sm' }),
-            'h-8 text-slate-700 dark:text-slate-300 hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+            'h-8 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
           )}
         >
           <Eye className="w-4 h-4 mr-1" /> View Loan

@@ -74,7 +74,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
     },
     {
       header: 'Total Due',
-      render: (row: any) => <span className="text-white font-semibold">{formatCurrency(row.totalDue)}</span>,
+      render: (row: any) => <span className="text-slate-900 dark:text-white font-semibold">{formatCurrency(row.totalDue)}</span>,
     },
     {
       header: 'Paid Components',
@@ -167,7 +167,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
       header: 'Balance',
       accessorKey: 'runningBalance',
       render: (row: any) => (
-        <span className="text-white font-bold font-mono">{formatCurrency(row.runningBalance)}</span>
+        <span className="text-slate-900 dark:text-white font-bold font-mono">{formatCurrency(row.runningBalance)}</span>
       ),
     },
     {
@@ -207,7 +207,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
             <CardHeader className="border-b border-slate-200 dark:border-slate-800/60 pb-4">
               <span className="text-[10px] uppercase font-bold text-violet-400 tracking-wider">Lending Summary</span>
               <div className="flex justify-between items-center mt-2">
-                <h3 className="text-lg font-bold text-white">{formatCurrency(loan.principalAmount)}</h3>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">{formatCurrency(loan.principalAmount)}</h3>
                 <StatusBadge status={loan.status} />
               </div>
             </CardHeader>
@@ -254,12 +254,12 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
                     {loan.customer.fullName.substring(0, 2).toUpperCase()}
                   </div>
                   <div className="truncate min-w-0 flex-grow">
-                    <Link href={`/customers/${loan.customer.id}`} className="text-sm font-bold text-white hover:text-violet-400 hover:underline transition-colors block truncate">
+                    <Link href={`/customers/${loan.customer.id}`} className="text-sm font-bold text-slate-900 dark:text-white hover:text-violet-500 dark:hover:text-violet-400 hover:underline transition-colors block truncate">
                       {loan.customer.fullName}
                     </Link>
                     <span className="text-[10px] text-slate-500 font-mono block mt-0.5">{loan.customer.customerCode}</span>
                   </div>
-                  <Link href={`/customers/${loan.customer.id}`} className="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-white shrink-0">
+                  <Link href={`/customers/${loan.customer.id}`} className="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white shrink-0">
                     <ArrowUpRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -287,7 +287,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
             <TabsContent value="schedule" className="mt-4">
               <Card className="bg-slate-100 dark:bg-slate-900/20 border-slate-200 dark:border-slate-800/80">
                 <CardHeader>
-                  <CardTitle className="text-white text-base">Amortization & Schedule</CardTitle>
+                  <CardTitle className="text-slate-900 dark:text-white text-base">Amortization & Schedule</CardTitle>
                   <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Repayment installment ledger, late fees, and allocation statuses.</CardDescription>
                 </CardHeader>
                 <CardContent className="px-0 sm:px-6">
@@ -306,7 +306,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
             <TabsContent value="payments" className="mt-4">
               <Card className="bg-slate-100 dark:bg-slate-900/20 border-slate-200 dark:border-slate-800/80">
                 <CardHeader>
-                  <CardTitle className="text-white text-base">Collection Payments History</CardTitle>
+                  <CardTitle className="text-slate-900 dark:text-white text-base">Collection Payments History</CardTitle>
                   <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Receipts recorded against this loan account.</CardDescription>
                 </CardHeader>
                 <CardContent className="px-0 sm:px-6">
@@ -326,7 +326,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
               <Card className="bg-slate-100 dark:bg-slate-900/20 border-slate-200 dark:border-slate-800/80">
                 <CardHeader className="flex flex-row justify-between items-center space-y-0 pb-4 border-b border-slate-200 dark:border-slate-800/60">
                   <div>
-                    <CardTitle className="text-white text-base">Account Ledger Transactions</CardTitle>
+                    <CardTitle className="text-slate-900 dark:text-white text-base">Account Ledger Transactions</CardTitle>
                     <CardDescription className="text-slate-500 dark:text-slate-400 text-xs mt-1">Immutable double-entry balance log of debits and credits.</CardDescription>
                   </div>
                   <ExportButton

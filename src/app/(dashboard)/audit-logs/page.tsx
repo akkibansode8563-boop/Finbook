@@ -27,7 +27,7 @@ export default async function AuditLogsPage() {
       header: 'Operator',
       render: (row: any) => (
         <div className="flex flex-col">
-          <span className="text-white font-semibold">{row.user?.name || 'System / Auto'}</span>
+          <span className="text-slate-900 dark:text-white font-semibold">{row.user?.name || 'System / Auto'}</span>
           <span className="text-[10px] text-slate-500 font-mono mt-0.5">{row.user?.email || '—'}</span>
         </div>
       ),

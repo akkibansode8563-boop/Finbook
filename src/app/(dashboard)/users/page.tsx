@@ -18,7 +18,7 @@ export default async function UsersManagementPage() {
     {
       header: 'Full Name',
       accessorKey: 'name',
-      render: (row: any) => <span className="font-semibold text-white">{row.name}</span>,
+      render: (row: any) => <span className="font-semibold text-slate-900 dark:text-white">{row.name}</span>,
     },
     {
       header: 'Email',

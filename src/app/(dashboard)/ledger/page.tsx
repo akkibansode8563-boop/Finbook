@@ -36,7 +36,7 @@ export default async function GlobalLedgerPage() {
     {
       header: 'Customer',
       render: (row: any) => (
-        <Link href={`/customers/${row.customer.id}`} className="text-white hover:text-violet-400 font-semibold hover:underline transition-colors">
+        <Link href={`/customers/${row.customer.id}`} className="text-slate-900 dark:text-white hover:text-violet-500 font-semibold hover:underline transition-colors">
           {row.customer.fullName}
         </Link>
       ),
@@ -76,7 +76,7 @@ export default async function GlobalLedgerPage() {
       header: 'Balance',
       accessorKey: 'runningBalance',
       render: (row: any) => (
-        <span className="text-white font-bold font-mono">{formatCurrency(row.runningBalance)}</span>
+        <span className="text-slate-900 dark:text-white font-bold font-mono">{formatCurrency(row.runningBalance)}</span>
       ),
     },
     {

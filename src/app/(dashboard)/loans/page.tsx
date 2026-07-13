@@ -33,7 +33,7 @@ export default async function LoansPage({ searchParams }: PageProps) {
     {
       header: 'Customer',
       render: (row: any) => (
-        <Link href={`/customers/${row.customer.id}`} className="text-white hover:text-violet-400 hover:underline font-semibold transition-colors">
+        <Link href={`/customers/${row.customer.id}`} className="text-slate-900 dark:text-white hover:text-violet-500 hover:underline font-semibold transition-colors">
           {row.customer.fullName}
         </Link>
       ),
@@ -75,7 +75,7 @@ export default async function LoansPage({ searchParams }: PageProps) {
           href={`/loans/${row.id}`}
           className={cn(
             buttonVariants({ variant: 'ghost', size: 'sm' }),
-            'h-8 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-white gap-1.5'
+            'h-8 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white gap-1.5'
           )}
         >
           <Eye className="w-4 h-4" />
@@ -125,7 +125,7 @@ export default async function LoansPage({ searchParams }: PageProps) {
                 buttonVariants({ variant: isActive ? 'default' : 'ghost', size: 'sm' }),
                 isActive
                   ? 'bg-violet-600 text-white hover:bg-violet-700 h-8'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-white hover:bg-slate-100 dark:bg-slate-900 h-8'
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:bg-slate-900 h-8'
               )}
             >
               {s.label}

@@ -51,10 +51,10 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
       ),
     },
     {
-      header: 'Principal',
+      header: 'Amount',
       accessorKey: 'principalAmount',
       render: (row: any) => (
-        <span className="text-white font-semibold">{formatCurrency(row.principalAmount)}</span>
+        <span className="text-slate-900 dark:text-white font-semibold">{formatCurrency(row.principalAmount)}</span>
       ),
     },
     {
@@ -89,7 +89,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
           href={`/loans/${row.id}`}
           className={cn(
             buttonVariants({ variant: 'ghost', size: 'sm' }),
-            'h-8 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-white'
+            'h-8 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
           )}
         >
           View Details
@@ -117,7 +117,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
               href={`/customers/${customer.id}/edit`}
               className={cn(
                 buttonVariants({ variant: 'outline' }),
-                'gap-2 h-10 px-4 bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:bg-slate-100/80 dark:bg-slate-850 hover:text-white'
+                'gap-2 h-10 px-4 bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:bg-slate-100/80 dark:bg-slate-850 hover:text-slate-900 dark:hover:text-white'
               )}
             >
               <Pencil className="w-4 h-4" />
@@ -136,7 +136,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
               <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white text-2xl font-extrabold mx-auto shadow-lg uppercase select-none">
                 {customer.fullName.substring(0, 2)}
               </div>
-              <h2 className="text-lg font-bold text-white mt-4">{customer.fullName}</h2>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white mt-4">{customer.fullName}</h2>
               <span className="text-xs text-slate-500 font-mono">{customer.customerCode}</span>
             </CardHeader>
             <CardContent className="pt-6 space-y-4 text-sm">
@@ -202,7 +202,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
               <Card className="bg-slate-100 dark:bg-slate-900/20 border-slate-200 dark:border-slate-800/80">
                 <CardHeader className="flex flex-row items-center justify-between pb-4">
                   <div>
-                    <CardTitle className="text-white text-base">Financing Loans</CardTitle>
+                    <CardTitle className="text-slate-900 dark:text-white text-base">Financing Loans</CardTitle>
                     <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Active disbursements and loan accounts history.</CardDescription>
                   </div>
                   <Link
@@ -231,7 +231,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
             <TabsContent value="kyc" className="mt-4">
               <Card className="bg-slate-100 dark:bg-slate-900/20 border-slate-200 dark:border-slate-800/80">
                 <CardHeader>
-                  <CardTitle className="text-white text-base">Identity Verifications</CardTitle>
+                  <CardTitle className="text-slate-900 dark:text-white text-base">Identity Verifications</CardTitle>
                   <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Official registration documents for verification checks.</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -240,7 +240,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
                       <div key={doc.id} className="p-4 rounded-xl border border-slate-850 bg-slate-100/50 dark:bg-slate-50 dark:bg-slate-950/40 flex justify-between items-start gap-4">
                         <div className="space-y-1">
                           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{doc.docType.replace('_', ' ')}</span>
-                          <p className="text-sm font-bold text-white font-mono">{doc.docNumber}</p>
+                          <p className="text-sm font-bold text-slate-900 dark:text-white font-mono">{doc.docNumber}</p>
                           {doc.fileUrl && (
                             <a href={doc.fileUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-violet-400 hover:underline block pt-2">
                               View Attached Proof
@@ -264,7 +264,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
             <TabsContent value="bank" className="mt-4">
               <Card className="bg-slate-100 dark:bg-slate-900/20 border-slate-200 dark:border-slate-800/80">
                 <CardHeader>
-                  <CardTitle className="text-white text-base">Bank Payout Accounts</CardTitle>
+                  <CardTitle className="text-slate-900 dark:text-white text-base">Bank Payout Accounts</CardTitle>
                   <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Verified accounts mapped for EMI withdrawals and bank transfers.</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -273,7 +273,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
                       <div key={bank.id} className="p-4 rounded-xl border border-slate-850 bg-slate-100/50 dark:bg-slate-50 dark:bg-slate-950/40 space-y-3 relative">
                         <div className="flex justify-between items-start">
                           <div>
-                            <span className="text-sm font-bold text-white block">{bank.bankName}</span>
+                            <span className="text-sm font-bold text-slate-900 dark:text-white block">{bank.bankName}</span>
                             <span className="text-xs text-slate-500 dark:text-slate-400 block mt-0.5">Holder: {bank.accountHolderName}</span>
                           </div>
                           {bank.isPrimary && (
@@ -314,7 +314,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
             <TabsContent value="guarantors" className="mt-4">
               <Card className="bg-slate-100 dark:bg-slate-900/20 border-slate-200 dark:border-slate-800/80">
                 <CardHeader>
-                  <CardTitle className="text-white text-base">Linked Guarantors</CardTitle>
+                  <CardTitle className="text-slate-900 dark:text-white text-base">Linked Guarantors</CardTitle>
                   <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">References supporting loan verification checks.</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -323,7 +323,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
                       <div key={g.id} className="p-4 rounded-xl border border-slate-850 bg-slate-100/50 dark:bg-slate-50 dark:bg-slate-950/40 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <div>
-                            <span className="text-sm font-bold text-white block">{g.fullName}</span>
+                            <span className="text-sm font-bold text-slate-900 dark:text-white block">{g.fullName}</span>
                             <span className="text-xs text-violet-400 block font-medium capitalize mt-0.5">Relation: {g.relation || 'Co-signer'}</span>
                           </div>
                           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 pt-1">
