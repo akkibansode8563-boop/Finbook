@@ -1,4 +1,5 @@
 import { getGlobalLedgerEntries } from '@/features/ledger/queries';
+import { formatDateDDMMYYYY } from '@/lib/utils/date';
 import { requireManager } from '@/lib/auth/rbac';
 import { DataTable } from '@/components/shared/data-table';
 import { PageHeader } from '@/components/layout/page-header';
@@ -17,6 +18,7 @@ export default async function GlobalLedgerPage() {
     {
       header: 'Entry Date',
       accessorKey: 'entryDate',
+      render: (row: any) => formatDateDDMMYYYY(row.entryDate),
     },
     {
       header: 'Customer',

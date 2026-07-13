@@ -1,4 +1,5 @@
 import { getAllPayments } from '@/features/payments/repository';
+import { formatDateDDMMYYYY } from '@/lib/utils/date';
 import { DataTable } from '@/components/shared/data-table';
 import { PageHeader } from '@/components/layout/page-header';
 import { Breadcrumbs } from '@/components/layout/breadcrumbs';
@@ -48,6 +49,7 @@ export default async function PaymentsLogPage() {
     {
       header: 'Date Collected',
       accessorKey: 'paymentDate',
+      render: (row: any) => formatDateDDMMYYYY(row.paymentDate),
     },
     {
       header: 'Mode',

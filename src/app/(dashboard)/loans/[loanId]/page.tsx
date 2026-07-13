@@ -17,6 +17,7 @@ import {
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { LoanActionsPanel } from './loan-actions-panel';
+import { formatDateDDMMYYYY } from '@/lib/utils/date';
 
 interface DetailPageProps {
   params: Promise<{ loanId: string }>;
@@ -56,6 +57,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
     {
       header: 'Due Date',
       accessorKey: 'dueDate',
+      render: (row: any) => formatDateDDMMYYYY(row.dueDate),
     },
     {
       header: 'Principal Due',
@@ -107,6 +109,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
     {
       header: 'Date Paid',
       accessorKey: 'paymentDate',
+      render: (row: any) => formatDateDDMMYYYY(row.paymentDate),
     },
     {
       header: 'Mode',
@@ -134,6 +137,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
     {
       header: 'Entry Date',
       accessorKey: 'entryDate',
+      render: (row: any) => formatDateDDMMYYYY(row.entryDate),
     },
     {
       header: 'Tx Type',
@@ -221,15 +225,15 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
               </div>
               <div className="flex justify-between border-b border-slate-200 dark:border-slate-800/40 pb-3">
                 <span className="text-slate-500">Disbursement Date</span>
-                <span className="text-slate-700 dark:text-slate-300">{loan.disbursementDate}</span>
+                <span className="text-slate-700 dark:text-slate-300">{formatDateDDMMYYYY(loan.disbursementDate)}</span>
               </div>
               <div className="flex justify-between border-b border-slate-200 dark:border-slate-800/40 pb-3">
                 <span className="text-slate-500">First Installment Date</span>
-                <span className="text-slate-700 dark:text-slate-300">{loan.startDate}</span>
+                <span className="text-slate-700 dark:text-slate-300">{formatDateDDMMYYYY(loan.startDate)}</span>
               </div>
               <div className="flex justify-between border-b border-slate-200 dark:border-slate-800/40 pb-3">
                 <span className="text-slate-500">Maturity Date</span>
-                <span className="text-slate-700 dark:text-slate-300">{loan.endDate}</span>
+                <span className="text-slate-700 dark:text-slate-300">{formatDateDDMMYYYY(loan.endDate)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Late Fee Policy</span>

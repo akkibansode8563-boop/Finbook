@@ -44,21 +44,22 @@ export function generateRepaymentSchedule({
   const targetDay = baseDate.getDate();
 
   const getInstallmentDate = (index: number) => {
+    const offset = index - 1;
     const newDate = new Date(baseDate);
     if (loanFrequency === 'monthly') {
       newDate.setDate(1);
-      newDate.setMonth(baseDate.getMonth() + index);
+      newDate.setMonth(baseDate.getMonth() + offset);
       const lastDay = new Date(newDate.getFullYear(), newDate.getMonth() + 1, 0).getDate();
       newDate.setDate(Math.min(targetDay, lastDay));
     } else if (loanFrequency === 'weekly') {
-      newDate.setDate(baseDate.getDate() + (index * 7));
+      newDate.setDate(baseDate.getDate() + (offset * 7));
     } else if (loanFrequency === 'daily') {
-      newDate.setDate(baseDate.getDate() + index);
+      newDate.setDate(baseDate.getDate() + offset);
     } else if (loanFrequency === 'yearly') {
-      newDate.setFullYear(baseDate.getFullYear() + index);
+      newDate.setFullYear(baseDate.getFullYear() + offset);
     } else {
       newDate.setDate(1);
-      newDate.setMonth(baseDate.getMonth() + index);
+      newDate.setMonth(baseDate.getMonth() + offset);
       const lastDay = new Date(newDate.getFullYear(), newDate.getMonth() + 1, 0).getDate();
       newDate.setDate(Math.min(targetDay, lastDay));
     }

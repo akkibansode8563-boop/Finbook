@@ -1,4 +1,5 @@
 import { getAllLoans } from '@/features/loans/repository';
+import { formatDateDDMMYYYY } from '@/lib/utils/date';
 import { DataTable } from '@/components/shared/data-table';
 import { PageHeader } from '@/components/layout/page-header';
 import { Breadcrumbs } from '@/components/layout/breadcrumbs';
@@ -53,10 +54,12 @@ export default async function LoansPage({ searchParams }: PageProps) {
     {
       header: 'Start Date',
       accessorKey: 'startDate',
+      render: (row: any) => formatDateDDMMYYYY(row.startDate),
     },
     {
       header: 'Maturity Date',
       accessorKey: 'endDate',
+      render: (row: any) => formatDateDDMMYYYY(row.endDate),
     },
     {
       header: 'Status',

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { formatDateDDMMYYYY } from '@/lib/utils/date';
 
 interface DetailPageProps {
   params: Promise<{ customerId: string }>;
@@ -72,6 +73,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
     {
       header: 'Disbursement',
       accessorKey: 'disbursementDate',
+      render: (row: any) => formatDateDDMMYYYY(row.disbursementDate),
     },
     {
       header: 'Status',
@@ -153,7 +155,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
               </div>
               <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
                 <Calendar className="w-4 h-4 text-slate-500 shrink-0" />
-                <span>Born: {customer.dob || '—'}</span>
+                <span>Born: {formatDateDDMMYYYY(customer.dob)}</span>
               </div>
               <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
                 <Briefcase className="w-4 h-4 text-slate-500 shrink-0" />

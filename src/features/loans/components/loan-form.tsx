@@ -20,6 +20,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { formatCurrency } from '@/lib/utils/currency';
 import { ArrowRight, ArrowLeft, Coins, Check, Calendar, Info } from 'lucide-react';
 import { toast } from 'sonner';
+import { formatDateDDMMYYYY } from '@/lib/utils/date';
 
 interface LoanFormProps {
   customers: { id: string; fullName: string; customerCode: string }[];
@@ -426,7 +427,7 @@ export function LoanForm({
                     {previewSchedule.map((inst) => (
                       <TableRow key={inst.installmentNo} className="hover:bg-slate-100 dark:hover:bg-slate-800/20">
                         <TableCell className="py-2.5 px-3 text-slate-500 dark:text-slate-400 text-xs font-semibold">{inst.installmentNo}</TableCell>
-                        <TableCell className="py-2.5 px-3 text-slate-700 dark:text-slate-300 text-xs">{inst.dueDate}</TableCell>
+                        <TableCell className="py-2.5 px-3 text-slate-700 dark:text-slate-300 text-xs">{formatDateDDMMYYYY(inst.dueDate)}</TableCell>
                         <TableCell className="py-2.5 px-3 text-slate-700 dark:text-slate-300 text-xs">{formatCurrency(inst.principalDue)}</TableCell>
                         <TableCell className="py-2.5 px-3 text-slate-700 dark:text-slate-300 text-xs">{formatCurrency(inst.interestDue)}</TableCell>
                         <TableCell className="py-2.5 px-3 text-white text-xs font-semibold">{formatCurrency(inst.totalDue)}</TableCell>
