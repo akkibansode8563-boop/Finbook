@@ -202,7 +202,7 @@ export function LoanForm({
               </div>
 
               <div className="space-y-1.5">
-                <Label className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Interest Rate (Annual APR %) *</Label>
+                <Label className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Interest Rate (%) *</Label>
                 <Input
                   type="number"
                   step="0.01"

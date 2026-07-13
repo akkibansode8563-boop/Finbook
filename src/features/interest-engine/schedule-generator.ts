@@ -61,13 +61,7 @@ export function generateRepaymentSchedule({
   };
 
   if (interestType === 'flat') {
-    // Flat Calculation: Interest = Principal * (annualRate) * tenure (in years)
-    let tenureInYears = tenureValue;
-    if (tenureUnit === 'months') tenureInYears = tenureValue / 12;
-    if (tenureUnit === 'weeks') tenureInYears = tenureValue / 52;
-    if (tenureUnit === 'days') tenureInYears = tenureValue / 365;
-
-    const totalInterest = principalAmount * annualRate * tenureInYears;
+    const totalInterest = principalAmount * annualRate;
     const interestPerInstallment = totalInterest / installmentsCount;
     const principalPerInstallment = principalAmount / installmentsCount;
 
