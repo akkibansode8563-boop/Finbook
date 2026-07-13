@@ -25,6 +25,7 @@ export async function createCustomerAction(formData: CustomerFormInput) {
       {
         ...basicData,
         createdBy: profile.id,
+        dob: basicData.dob || null,
         // Convert monthly income string to numeric format for DB compatibility
         monthlyIncome: basicData.monthlyIncome ? String(basicData.monthlyIncome) : '0',
       },
@@ -58,6 +59,7 @@ export async function updateCustomerAction(customerId: string, formData: Custome
       customerId,
       {
         ...basicData,
+        dob: basicData.dob || null,
         monthlyIncome: basicData.monthlyIncome ? String(basicData.monthlyIncome) : '0',
       },
       {
