@@ -143,8 +143,8 @@ export function LoanForm({
                 control={control}
                 name="customerId"
                 render={({ field }) => (
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 h-11">
+                  <Select onValueChange={field.onChange} value={field.value || ''}>
+                    <SelectTrigger className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 h-11 w-full">
                       <SelectValue placeholder="Search and select customer profile..." />
                     </SelectTrigger>
                     <SelectContent className="bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
@@ -175,7 +175,7 @@ export function LoanForm({
                 type="button"
                 disabled={!watchedValues.customerId}
                 onClick={handleNext}
-                className="bg-violet-600 hover:bg-violet-700 text-white gap-1.5"
+                className="bg-violet-600 hover:bg-violet-700 text-white gap-1.5 disabled:opacity-50 disabled:pointer-events-none"
               >
                 <span>Configure Terms</span>
                 <ArrowRight className="w-4 h-4" />
@@ -221,7 +221,7 @@ export function LoanForm({
                   control={control}
                   name="interestType"
                   render={({ field }) => (
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value || ''}>
                       <SelectTrigger className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
                         <SelectValue />
                       </SelectTrigger>
@@ -240,7 +240,7 @@ export function LoanForm({
                   control={control}
                   name="loanFrequency"
                   render={({ field }) => (
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value || ''}>
                       <SelectTrigger className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
                         <SelectValue />
                       </SelectTrigger>
@@ -267,7 +267,7 @@ export function LoanForm({
                     control={control}
                     name="tenureUnit"
                     render={({ field }) => (
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} value={field.value || ''}>
                         <SelectTrigger className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 w-1/2">
                           <SelectValue />
                         </SelectTrigger>
@@ -293,7 +293,7 @@ export function LoanForm({
                     control={control}
                     name="lateFeeType"
                     render={({ field }) => (
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} value={field.value || ''}>
                         <SelectTrigger className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 w-1/3">
                           <SelectValue />
                         </SelectTrigger>
@@ -337,7 +337,7 @@ export function LoanForm({
                   control={control}
                   name="allocationMethod"
                   render={({ field }) => (
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value || ''}>
                       <SelectTrigger className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
                         <SelectValue />
                       </SelectTrigger>
@@ -370,7 +370,7 @@ export function LoanForm({
                   !watchedValues.tenureValue
                 }
                 onClick={handleNext}
-                className="bg-violet-600 hover:bg-violet-700 text-white gap-1.5"
+                className="bg-violet-600 hover:bg-violet-700 text-white gap-1.5 disabled:opacity-50 disabled:pointer-events-none"
               >
                 <span>Preview Installments</span>
                 <ArrowRight className="w-4 h-4" />
