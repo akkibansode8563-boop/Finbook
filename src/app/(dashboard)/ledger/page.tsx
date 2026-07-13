@@ -7,12 +7,25 @@ import { Breadcrumbs } from '@/components/layout/breadcrumbs';
 import { formatCurrency } from '@/lib/utils/currency';
 import { BookOpen } from 'lucide-react';
 import Link from 'next/link';
+import { ExportButton } from '@/components/shared/export-button';
 
 export default async function GlobalLedgerPage() {
   // Enforce manager or admin access
   await requireManager();
 
   const entries = await getGlobalLedgerEntries();
+
+  const ledgerHeaders = [
+    { label: 'Entry Date', key: 'entryDate' },
+    { label: 'Customer Name', key: 'customer.fullName' },
+    { label: 'Customer Code', key: 'customer.customerCode' },
+    { label: 'Loan Number', key: 'loan.loanNumber' },
+    { label: 'Transaction Type', key: 'txnType' },
+    { label: 'Debit (INR)', key: 'debit' },
+    { label: 'Credit (INR)', key: 'credit' },
+    { label: 'Running Balance (INR)', key: 'runningBalance' },
+    { label: 'Description', key: 'description' },
+  ];
 
   const columns = [
     {
@@ -80,6 +93,14 @@ export default async function GlobalLedgerPage() {
       <PageHeader
         title="General Accounting Ledger"
         description="Immutable record of all financial events, disbursements, payments, and settlements."
+        actions={
+          <ExportButton
+            data={entries}
+            headers={ledgerHeaders}
+            filename={`General_Ledger_${new Date().toISOString().split('T')[0]}`}
+            className="bg-slate-800 hover:bg-slate-700 text-white font-semibold shadow-lg border-slate-700 h-10 px-4"
+          />
+        }
       />
 
       <DataTable

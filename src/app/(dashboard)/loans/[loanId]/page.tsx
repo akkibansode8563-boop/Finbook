@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { LoanActionsPanel } from './loan-actions-panel';
 import { formatDateDDMMYYYY } from '@/lib/utils/date';
+import { ExportButton } from '@/components/shared/export-button';
 
 interface DetailPageProps {
   params: Promise<{ loanId: string }>;
@@ -323,9 +324,24 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
             {/* 3. Ledger Tab */}
             <TabsContent value="ledger" className="mt-4">
               <Card className="bg-slate-100 dark:bg-slate-900/20 border-slate-200 dark:border-slate-800/80">
-                <CardHeader>
-                  <CardTitle className="text-white text-base">Account Ledger Transactions</CardTitle>
-                  <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Immutable double-entry balance log of debits and credits.</CardDescription>
+                <CardHeader className="flex flex-row justify-between items-center space-y-0 pb-4 border-b border-slate-200 dark:border-slate-800/60">
+                  <div>
+                    <CardTitle className="text-white text-base">Account Ledger Transactions</CardTitle>
+                    <CardDescription className="text-slate-500 dark:text-slate-400 text-xs mt-1">Immutable double-entry balance log of debits and credits.</CardDescription>
+                  </div>
+                  <ExportButton
+                    data={loanLedger}
+                    headers={[
+                      { label: 'Entry Date', key: 'entryDate' },
+                      { label: 'Transaction Type', key: 'txnType' },
+                      { label: 'Debit (INR)', key: 'debit' },
+                      { label: 'Credit (INR)', key: 'credit' },
+                      { label: 'Running Balance (INR)', key: 'runningBalance' },
+                      { label: 'Description', key: 'description' },
+                    ]}
+                    filename={`Loan_Ledger_${loan.loanNumber}_${new Date().toISOString().split('T')[0]}`}
+                    className="bg-slate-800 hover:bg-slate-700 text-white font-semibold border-slate-700 h-9"
+                  />
                 </CardHeader>
                 <CardContent className="px-0 sm:px-6">
                   <DataTable
