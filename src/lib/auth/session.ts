@@ -1,50 +1,53 @@
-import { createClient } from '../supabase/server';
 import { db } from '../db/client';
 import { users } from '../../../drizzle/schema';
 import { eq } from 'drizzle-orm';
-import { redirect } from 'next/navigation';
+
+// Mock profile matching the User table schema
+const MOCK_PROFILE = {
+  id: '00000000-0000-0000-0000-000000000000',
+  authId: '00000000-0000-0000-0000-000000000000',
+  name: 'Admin Developer',
+  email: 'admin@finbook.local',
+  role: 'admin' as const,
+  isActive: true,
+  createdAt: new Date('2026-01-01T00:00:00Z'),
+  updatedAt: new Date('2026-01-01T00:00:00Z'),
+  deletedAt: null,
+};
+
+// Mock user matching Supabase Auth User properties
+const MOCK_USER = {
+  id: '00000000-0000-0000-0000-000000000000',
+  email: 'admin@finbook.local',
+};
 
 export async function getSession() {
-  const supabase = await createClient();
-  const { data: { session } } = await supabase.auth.getSession();
-  return session;
+  return { access_token: 'mock-token', user: MOCK_USER };
 }
 
 export async function getCurrentUser() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  return user;
+  return MOCK_USER;
 }
 
 export async function getCurrentUserProfile() {
-  const user = await getCurrentUser();
-  if (!user) return null;
-
   try {
-    const profile = await db.query.users.findFirst({
-      where: eq(users.authId, user.id),
+    // Self-healing database insert so the mock user ID is present for foreign key references
+    const existing = await db.query.users.findFirst({
+      where: eq(users.id, MOCK_PROFILE.id),
     });
-    return profile || null;
+    if (!existing) {
+      await db.insert(users).values(MOCK_PROFILE);
+    }
   } catch (error) {
-    console.error('Error fetching user profile:', error);
-    return null;
+    console.error('Failed to seed mock user in database:', error);
   }
+  return MOCK_PROFILE;
 }
 
 /**
- * Enforces authentication and retrieves both the auth session user and database profile.
- * Redirects to login if either are missing or the profile is deactivated.
+ * Bypasses authentication check and returns mock admin user/profile instantly.
  */
 export async function requireAuth() {
-  const user = await getCurrentUser();
-  if (!user) {
-    redirect('/login');
-  }
-
   const profile = await getCurrentUserProfile();
-  if (!profile || !profile.isActive || profile.deletedAt) {
-    redirect('/login?error=unauthorized');
-  }
-
-  return { user, profile };
+  return { user: MOCK_USER, profile };
 }

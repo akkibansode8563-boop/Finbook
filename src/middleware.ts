@@ -1,25 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { updateSession } from './lib/supabase/middleware';
 
 export async function middleware(request: NextRequest) {
-  const { supabaseResponse, user } = await updateSession(request);
+  // Mock logged-in user to bypass auth routing gates
+  const user = { id: '00000000-0000-0000-0000-000000000000' };
 
   const path = request.nextUrl.pathname;
-
-  // Define public routes that do not require auth
   const isAuthRoute = path === '/login' || path === '/register';
-
-  // We guard all dashboard routes. Any route other than login/register/api/static is dashboard.
-  const isApiRoute = path.startsWith('/api');
-  
-  if (!user && !isAuthRoute && !isApiRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    if (path !== '/') {
-      url.searchParams.set('redirectTo', path);
-    }
-    return NextResponse.redirect(url);
-  }
 
   if (user && isAuthRoute) {
     const url = request.nextUrl.clone();
@@ -29,11 +15,11 @@ export async function middleware(request: NextRequest) {
 
   if (path === '/') {
     const url = request.nextUrl.clone();
-    url.pathname = user ? '/dashboard' : '/login';
+    url.pathname = '/dashboard';
     return NextResponse.redirect(url);
   }
 
-  return supabaseResponse;
+  return NextResponse.next();
 }
 
 export const config = {
