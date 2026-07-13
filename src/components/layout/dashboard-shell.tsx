@@ -7,6 +7,7 @@ import type { UserRole } from '@/lib/constants/roles';
 import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { PageTransition } from '../shared/page-transition';
 
 interface DashboardShellProps {
   children: React.ReactNode;
@@ -69,7 +70,9 @@ export function DashboardShell({ children, userProfile }: DashboardShellProps) {
  
         {/* Page Content Scroll Area */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 bg-background">
-          {children}
+          <PageTransition>
+            {children}
+          </PageTransition>
         </main>
       </div>
     </div>
