@@ -243,10 +243,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
                   {loan.lateFeeType === 'percent' ? '%' : ''}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Grace Period</span>
-                <span className="text-slate-700 dark:text-slate-300">{loan.gracePeriodDays} Days</span>
-              </div>
+
 
               {/* Customer Box */}
               <div className="pt-6 border-t border-slate-200 dark:border-slate-800/60 mt-6 space-y-3">

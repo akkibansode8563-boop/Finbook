@@ -62,7 +62,7 @@ export function LoanForm({
       tenureUnit: 'months',
       lateFeeType: 'flat',
       lateFeeValue: '100',
-      gracePeriodDays: 5,
+      gracePeriodDays: 0,
       notes: '',
     },
   });
@@ -324,14 +324,7 @@ export function LoanForm({
                 <Input type="date" {...register('startDate')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 h-10" />
               </div>
 
-              <div className="space-y-1.5">
-                <Label className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Grace Period (Days)</Label>
-                <Input
-                  type="number"
-                  {...register('gracePeriodDays', { valueAsNumber: true })}
-                  className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 h-10"
-                />
-              </div>
+
 
               <div className="space-y-1.5">
                 <Label className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Allocation Priority</Label>

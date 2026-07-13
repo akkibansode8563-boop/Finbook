@@ -96,13 +96,12 @@ export function generateRepaymentSchedule({
     }
   } else {
     // Reducing Balance mode
-    // Periodic Interest Rate
-    let periodsPerYear = 12;
-    if (loanFrequency === 'weekly') periodsPerYear = 52;
-    if (loanFrequency === 'daily') periodsPerYear = 365;
-    if (loanFrequency === 'yearly') periodsPerYear = 1;
+    // Periodic Interest Rate (assuming interestRate is a monthly rate)
+    let r = interestRate / 100; // default for monthly
+    if (loanFrequency === 'weekly') r = (interestRate / 100) / 4;
+    if (loanFrequency === 'daily') r = (interestRate / 100) / 30;
+    if (loanFrequency === 'yearly') r = (interestRate / 100) * 12;
 
-    const r = annualRate / periodsPerYear;
     const n = installmentsCount;
 
     // Calculate Equated Monthly/Periodic Installment (EMI)
