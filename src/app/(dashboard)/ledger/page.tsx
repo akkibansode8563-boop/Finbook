@@ -8,6 +8,7 @@ import { formatCurrency } from '@/lib/utils/currency';
 import { BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import { ExportButton } from '@/components/shared/export-button';
+import { cn } from '@/lib/utils';
 
 export default async function GlobalLedgerPage() {
   // Enforce manager or admin access

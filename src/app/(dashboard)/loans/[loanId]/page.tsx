@@ -19,6 +19,7 @@ import { notFound } from 'next/navigation';
 import { LoanActionsPanel } from './loan-actions-panel';
 import { formatDateDDMMYYYY } from '@/lib/utils/date';
 import { ExportButton } from '@/components/shared/export-button';
+import { cn } from '@/lib/utils';
 
 interface DetailPageProps {
   params: Promise<{ loanId: string }>;
