@@ -6,7 +6,7 @@ import {
   guarantors,
   customerDocuments
 } from '../../../drizzle/schema';
-import { eq, and, isNull, desc, like, or } from 'drizzle-orm';
+import { eq, and, isNull, desc, like, or, sql } from 'drizzle-orm';
 import type {
   Customer,
   NewCustomer,
@@ -59,6 +59,8 @@ export async function getCustomerById(id: string): Promise<CustomerWithDetails |
   return (customer as CustomerWithDetails) || null;
 }
 
+import { logAuditEvent } from '../audit/logger';
+
 /**
  * Atomic customer creation transaction.
  */
@@ -71,8 +73,11 @@ export async function createCustomer(
   }
 ): Promise<Customer> {
   return await db.transaction(async (tx) => {
-    // Generate code: CUST-XXXXXXXX (8-digit random/timestamp slice)
-    const customerCode = `CUST-${Math.floor(10000000 + Math.random() * 90000000)}`;
+    // Generate code: CUS-YYYY-XXXXXX using postgres sequence
+    const result = await tx.execute<{ nextval: string }>(sql`SELECT nextval('customer_code_seq')`);
+    const nextVal = result[0]?.nextval || Math.floor(1000 + Math.random() * 9000);
+    const year = new Date().getFullYear();
+    const customerCode = `CUS-${year}-${String(nextVal).padStart(6, '0')}`;
 
     const [insertedCustomer] = await tx.insert(customers).values({
       ...customerData,
@@ -99,6 +104,15 @@ export async function createCustomer(
       );
     }
 
+    // Log the event to audit log
+    await logAuditEvent({
+      action: 'create',
+      entityType: 'customers',
+      entityId: customerId,
+      newValue: insertedCustomer,
+      tx,
+    });
+
     return insertedCustomer;
   });
 }
@@ -116,10 +130,14 @@ export async function updateCustomer(
   }
 ): Promise<void> {
   await db.transaction(async (tx) => {
+    // Fetch old value for audit logging
+    const [oldCustomer] = await tx.select().from(customers).where(eq(customers.id, customerId));
+
     // 1. Update basic profile info
-    await tx.update(customers)
+    const [updatedCustomer] = await tx.update(customers)
       .set({ ...customerData, updatedAt: new Date() })
-      .where(eq(customers.id, customerId));
+      .where(eq(customers.id, customerId))
+      .returning();
 
     // 2. Refresh lists (delete and insert)
     if (relationsData) {
@@ -147,6 +165,16 @@ export async function updateCustomer(
         );
       }
     }
+
+    // Log the event to audit log
+    await logAuditEvent({
+      action: 'update',
+      entityType: 'customers',
+      entityId: customerId,
+      oldValue: oldCustomer,
+      newValue: updatedCustomer,
+      tx,
+    });
   });
 }
 
@@ -154,7 +182,42 @@ export async function updateCustomer(
  * Soft deletes a customer by setting deleted_at timestamp.
  */
 export async function softDeleteCustomer(id: string): Promise<void> {
-  await db.update(customers)
-    .set({ deletedAt: new Date(), updatedAt: new Date() })
-    .where(eq(customers.id, id));
+  await db.transaction(async (tx) => {
+    const [oldCustomer] = await tx.select().from(customers).where(eq(customers.id, id));
+    const [newCustomer] = await tx.update(customers)
+      .set({ deletedAt: new Date(), updatedAt: new Date() })
+      .where(eq(customers.id, id))
+      .returning();
+
+    await logAuditEvent({
+      action: 'delete',
+      entityType: 'customers',
+      entityId: id,
+      oldValue: oldCustomer,
+      newValue: newCustomer,
+      tx,
+    });
+  });
+}
+
+/**
+ * Restores a soft-deleted customer by clearing deleted_at timestamp.
+ */
+export async function restoreCustomer(id: string): Promise<void> {
+  await db.transaction(async (tx) => {
+    const [oldCustomer] = await tx.select().from(customers).where(eq(customers.id, id));
+    const [newCustomer] = await tx.update(customers)
+      .set({ deletedAt: null, updatedAt: new Date() })
+      .where(eq(customers.id, id))
+      .returning();
+
+    await logAuditEvent({
+      action: 'restore',
+      entityType: 'customers',
+      entityId: id,
+      oldValue: oldCustomer,
+      newValue: newCustomer,
+      tx,
+    });
+  });
 }

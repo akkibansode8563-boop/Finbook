@@ -53,7 +53,7 @@ export default function RegisterPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1 text-center">
-        <h2 className="text-xl font-bold text-white">Create Admin Account</h2>
+        <h2 className="text-xl font-bold text-white font-display">Create Admin Account</h2>
         <p className="text-xs text-slate-500 dark:text-slate-400">Set up a management login for Finbook</p>
       </div>
 

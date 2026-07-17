@@ -1,6 +1,6 @@
 import { db } from '@/lib/db/client';
 import { loans, loanSchedule, ledgerEntries, customers } from '../../../drizzle/schema';
-import { eq, and, isNull, desc } from 'drizzle-orm';
+import { eq, and, isNull, desc, sql } from 'drizzle-orm';
 import type {
   Loan,
   NewLoan,
@@ -46,6 +46,8 @@ export async function getLoanById(id: string): Promise<LoanWithDetails | null> {
   return (loan as LoanWithDetails) || null;
 }
 
+import { logAuditEvent } from '../audit/logger';
+
 /**
  * Creates a loan, saves its generated schedule, and records the initial disbursement entry in the ledger.
  */
@@ -54,8 +56,11 @@ export async function createLoan(
   scheduleItems: Omit<NewLoanSchedule, 'id' | 'loanId' | 'createdAt' | 'updatedAt'>[]
 ): Promise<Loan> {
   return await db.transaction(async (tx) => {
-    // 1. Generate unique loan number: LOAN-YYYYMMDD-XXXX
-    const loanNumber = `LN-${Math.floor(10000000 + Math.random() * 90000000)}`;
+    // 1. Generate unique loan number: LOAN-YYYY-XXXXXX using postgres sequence
+    const result = await tx.execute<{ nextval: string }>(sql`SELECT nextval('loan_number_seq')`);
+    const nextVal = result[0]?.nextval || Math.floor(1000 + Math.random() * 9000);
+    const year = new Date().getFullYear();
+    const loanNumber = `LOAN-${year}-${String(nextVal).padStart(6, '0')}`;
 
     // 2. Insert Loan
     const [insertedLoan] = await tx.insert(loans).values({
@@ -73,7 +78,6 @@ export async function createLoan(
     }
 
     // 4. Post Disbursement entry to Ledger
-    // Debit represents the amount lent out (customer owes us this principal)
     const principalStr = String(insertedLoan.principalAmount);
     await tx.insert(ledgerEntries).values({
       loanId,
@@ -89,6 +93,15 @@ export async function createLoan(
       createdBy: insertedLoan.createdBy,
     });
 
+    // Log the event to audit log
+    await logAuditEvent({
+      action: 'create',
+      entityType: 'loans',
+      entityId: loanId,
+      newValue: insertedLoan,
+      tx,
+    });
+
     return insertedLoan;
   });
 }
@@ -97,7 +110,42 @@ export async function createLoan(
  * Soft deletes a loan and associated schedule records.
  */
 export async function softDeleteLoan(id: string): Promise<void> {
-  await db.update(loans)
-    .set({ deletedAt: new Date(), updatedAt: new Date() })
-    .where(eq(loans.id, id));
+  await db.transaction(async (tx) => {
+    const [oldLoan] = await tx.select().from(loans).where(eq(loans.id, id));
+    const [newLoan] = await tx.update(loans)
+      .set({ deletedAt: new Date(), updatedAt: new Date() })
+      .where(eq(loans.id, id))
+      .returning();
+
+    await logAuditEvent({
+      action: 'delete',
+      entityType: 'loans',
+      entityId: id,
+      oldValue: oldLoan,
+      newValue: newLoan,
+      tx,
+    });
+  });
+}
+
+/**
+ * Restores a soft-deleted loan.
+ */
+export async function restoreLoan(id: string): Promise<void> {
+  await db.transaction(async (tx) => {
+    const [oldLoan] = await tx.select().from(loans).where(eq(loans.id, id));
+    const [newLoan] = await tx.update(loans)
+      .set({ deletedAt: null, updatedAt: new Date() })
+      .where(eq(loans.id, id))
+      .returning();
+
+    await logAuditEvent({
+      action: 'restore',
+      entityType: 'loans',
+      entityId: id,
+      oldValue: oldLoan,
+      newValue: newLoan,
+      tx,
+    });
+  });
 }

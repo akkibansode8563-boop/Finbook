@@ -54,7 +54,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
       header: 'Amount',
       accessorKey: 'principalAmount',
       render: (row: any) => (
-        <span className="text-slate-900 dark:text-white font-semibold">{formatCurrency(row.principalAmount)}</span>
+        <span className="text-slate-900 dark:text-white font-semibold font-mono tabular-nums">{formatCurrency(row.principalAmount)}</span>
       ),
     },
     {
@@ -136,8 +136,8 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
               <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white text-2xl font-extrabold mx-auto shadow-lg uppercase select-none">
                 {customer.fullName.substring(0, 2)}
               </div>
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white mt-4">{customer.fullName}</h2>
-              <span className="text-xs text-slate-500 font-mono">{customer.customerCode}</span>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white mt-4 font-display">{customer.fullName}</h2>
+              <span className="text-xs text-slate-500 font-mono tabular-nums">{customer.customerCode}</span>
             </CardHeader>
             <CardContent className="pt-6 space-y-4 text-sm">
               <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
@@ -163,7 +163,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
               </div>
               <div className="flex items-center gap-3 text-slate-700 dark:text-slate-300">
                 <Wallet className="w-4 h-4 text-slate-500 shrink-0" />
-                <span>Monthly Income: <strong className="text-emerald-400 font-semibold">{formatCurrency(customer.monthlyIncome)}</strong></span>
+                <span>Monthly Income: <strong className="text-emerald-400 font-semibold font-mono tabular-nums">{formatCurrency(customer.monthlyIncome)}</strong></span>
               </div>
               <div className="flex items-start gap-3 text-slate-700 dark:text-slate-300">
                 <MapPin className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />

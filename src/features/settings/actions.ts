@@ -85,3 +85,76 @@ export async function updateOrgSettingsAction(data: {
   }
 }
 export type OrgSettingsAction = typeof updateOrgSettingsAction;
+
+import { sql } from 'drizzle-orm';
+import { logAuditEvent } from '../audit/logger';
+
+/**
+ * Restores the database from a raw SQL string transactionally.
+ */
+export async function restoreDatabaseAction(sqlString: string) {
+  const { profile } = await requireAdmin();
+
+  try {
+    return await db.transaction(async (tx) => {
+      // Split SQL queries by standard line-ending semicolon
+      const statements = sqlString.split(';\n');
+      
+      for (let stmt of statements) {
+        stmt = stmt.trim();
+        if (!stmt || stmt.startsWith('--')) continue;
+        await tx.execute(sql.raw(stmt));
+      }
+
+      await logAuditEvent({
+        action: 'restore',
+        entityType: 'database',
+        entityId: '00000000-0000-0000-0000-000000000000',
+        newValue: { restoredBy: profile.name },
+        tx,
+      });
+
+      return { success: true, error: null };
+    });
+  } catch (error: any) {
+    console.error('Failed to restore database backup:', error);
+    return { success: false, error: error.message || 'An unexpected error occurred.' };
+  }
+}
+
+/**
+ * Exports all database table records as JSON.
+ */
+export async function exportTableDataAction() {
+  await requireAdmin();
+
+  try {
+    const tables = [
+      'users',
+      'org_settings',
+      'customers',
+      'customer_bank_details',
+      'customer_identity_documents',
+      'guarantors',
+      'customer_documents',
+      'loans',
+      'loan_schedule',
+      'payments',
+      'late_fees',
+      'settlements',
+      'ledger_entries',
+      'audit_logs',
+      'system_approvals',
+    ];
+
+    const data: Record<string, any[]> = {};
+    for (const table of tables) {
+      data[table] = await db.execute(sql.raw(`SELECT * FROM "${table}"`));
+    }
+
+    return { success: true, data, error: null };
+  } catch (error: any) {
+    console.error('Failed to export table data:', error);
+    return { success: false, data: null, error: error.message || 'Failed to export database tables.' };
+  }
+}

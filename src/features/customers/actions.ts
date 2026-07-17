@@ -5,17 +5,19 @@ import { customerSchema, type CustomerFormInput } from './schema';
 import {
   createCustomer,
   updateCustomer,
-  softDeleteCustomer
+  softDeleteCustomer,
+  restoreCustomer
 } from './repository';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { handleDatabaseError } from '@/lib/db/errors';
 
-export async function createCustomerAction(formData: CustomerFormInput) {
+export async function createCustomerAction(formData: CustomerFormInput): Promise<{ success: boolean; customerId?: string; error?: string }> {
   const { profile } = await requireStaff();
 
   const result = customerSchema.safeParse(formData);
   if (!result.success) {
-    return { error: result.error.issues[0].message };
+    return { success: false, error: result.error.issues[0].message };
   }
 
   const { identityDocuments, bankDetails, guarantors, ...basicData } = result.data;
@@ -39,17 +41,16 @@ export async function createCustomerAction(formData: CustomerFormInput) {
     revalidatePath('/customers');
     return { success: true, customerId: newCust.id };
   } catch (error: any) {
-    console.error('Failed to create customer:', error);
-    return { error: error.message || 'An unexpected error occurred.' };
+    return { success: false, ...handleDatabaseError(error) };
   }
 }
 
-export async function updateCustomerAction(customerId: string, formData: CustomerFormInput) {
+export async function updateCustomerAction(customerId: string, formData: CustomerFormInput): Promise<{ success: boolean; error?: string }> {
   const { profile } = await requireStaff();
 
   const result = customerSchema.safeParse(formData);
   if (!result.success) {
-    return { error: result.error.issues[0].message };
+    return { success: false, error: result.error.issues[0].message };
   }
 
   const { identityDocuments, bankDetails, guarantors, ...basicData } = result.data;
@@ -73,20 +74,32 @@ export async function updateCustomerAction(customerId: string, formData: Custome
     revalidatePath(`/customers/${customerId}`);
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to update customer:', error);
-    return { error: error.message || 'An unexpected error occurred.' };
+    return { success: false, ...handleDatabaseError(error) };
   }
 }
 
-export async function deleteCustomerAction(customerId: string) {
+export async function deleteCustomerAction(customerId: string): Promise<{ success: boolean; error?: string }> {
   await requireStaff();
 
   try {
     await softDeleteCustomer(customerId);
     revalidatePath('/customers');
+    revalidatePath('/audit-logs');
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to delete customer:', error);
-    return { error: error.message || 'An unexpected error occurred.' };
+    return { success: false, ...handleDatabaseError(error) };
+  }
+}
+
+export async function restoreCustomerAction(customerId: string): Promise<{ success: boolean; error?: string }> {
+  await requireStaff();
+
+  try {
+    await restoreCustomer(customerId);
+    revalidatePath('/customers');
+    revalidatePath('/audit-logs');
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, ...handleDatabaseError(error) };
   }
 }

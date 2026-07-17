@@ -6,6 +6,7 @@ import { payments, lateFees, settlements } from './payments';
 import { ledgerEntries } from './ledger';
 import { auditLogs } from './audit';
 import { orgSettings } from './settings';
+import { systemApprovals } from './approvals';
 
 // Export all tables
 export * from './users';
@@ -15,6 +16,7 @@ export * from './payments';
 export * from './ledger';
 export * from './audit';
 export * from './settings';
+export * from './approvals';
 
 // Relations definitions
 export const usersRelations = relations(users, ({ many }) => ({
@@ -153,6 +155,17 @@ export const ledgerEntriesRelations = relations(ledgerEntries, ({ one }) => ({
 export const auditLogsRelations = relations(auditLogs, ({ one }) => ({
   user: one(users, {
     fields: [auditLogs.userId],
+    references: [users.id],
+  }),
+}));
+
+export const systemApprovalsRelations = relations(systemApprovals, ({ one }) => ({
+  requestedByUser: one(users, {
+    fields: [systemApprovals.requestedBy],
+    references: [users.id],
+  }),
+  approvedByUser: one(users, {
+    fields: [systemApprovals.approvedBy],
     references: [users.id],
   }),
 }));

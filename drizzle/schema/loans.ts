@@ -1,4 +1,5 @@
-import { pgTable, uuid, varchar, integer, numeric, timestamp, date, text, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, varchar, integer, numeric, timestamp, date, text, pgEnum, index, check } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 import { users } from './users';
 import { customers } from './customers';
 
@@ -39,7 +40,12 @@ export const loans = pgTable('loans', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
-});
+}, (table) => ({
+  statusIdx: index('loans_status_idx').on(table.status),
+  loanNumberIdx: index('loans_number_idx').on(table.loanNumber),
+  disbursementDateIdx: index('loans_disbursement_date_idx').on(table.disbursementDate),
+  principalAmountCheck: check('loans_principal_amount_check', sql`${table.principalAmount} > 0`),
+}));
 
 export const loanSchedule = pgTable('loan_schedule', {
   id: uuid('id').defaultRandom().primaryKey(),

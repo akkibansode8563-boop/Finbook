@@ -43,7 +43,7 @@ export default function LoginPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1 text-center">
-        <h2 className="text-xl font-bold text-white">Welcome Back</h2>
+        <h2 className="text-xl font-bold text-white font-display">Welcome Back</h2>
         <p className="text-xs text-slate-500 dark:text-slate-400">Sign in to your Finbook admin portal</p>
       </div>
 

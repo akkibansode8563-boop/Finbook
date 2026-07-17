@@ -43,7 +43,7 @@ export default async function PaymentsLogPage() {
       header: 'Amount Paid',
       accessorKey: 'amount',
       render: (row: any) => (
-        <span className="text-emerald-400 font-bold">{formatCurrency(row.amount)}</span>
+        <span className="text-emerald-400 font-bold font-mono tabular-nums">{formatCurrency(row.amount)}</span>
       ),
     },
     {
@@ -59,7 +59,7 @@ export default async function PaymentsLogPage() {
     {
       header: 'Allocations Split',
       render: (row: any) => (
-        <span className="text-slate-500 dark:text-slate-400 text-xs">
+        <span className="text-slate-500 dark:text-slate-400 text-xs font-mono tabular-nums">
           P: {formatCurrency(row.principalComponent)} | I: {formatCurrency(row.interestComponent)} | F: {formatCurrency(row.lateFeeComponent)}
         </span>
       ),

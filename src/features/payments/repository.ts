@@ -7,8 +7,9 @@ import {
   settlements,
   customers
 } from '../../../drizzle/schema';
-import { eq, and, isNull, desc } from 'drizzle-orm';
+import { eq, and, isNull, desc, sql } from 'drizzle-orm';
 import type { NewLoan } from '../loans/types';
+import { logAuditEvent } from '../audit/logger';
 
 export type NewPayment = typeof payments.$inferInsert;
 export type NewSettlement = typeof settlements.$inferInsert;
@@ -41,8 +42,11 @@ export async function createPayment(
   }[]
 ): Promise<any> {
   return await db.transaction(async (tx) => {
-    // 1. Generate receipt number: RCP-XXXXXXXX
-    const receiptNumber = `RCP-${Math.floor(10000000 + Math.random() * 90000000)}`;
+    // 1. Generate receipt number: PAY-YYYY-XXXXXX using postgres sequence
+    const result = await tx.execute<{ nextval: string }>(sql`SELECT nextval('receipt_number_seq')`);
+    const nextVal = result[0]?.nextval || Math.floor(1000 + Math.random() * 9000);
+    const year = new Date().getFullYear();
+    const receiptNumber = `PAY-${year}-${String(nextVal).padStart(6, '0')}`;
 
     // 2. Insert Payment Receipt
     const [insertedPayment] = await tx.insert(payments).values({
@@ -122,7 +126,134 @@ export async function createPayment(
         .where(eq(loans.id, insertedPayment.loanId));
     }
 
+    // Log the event to audit log
+    await logAuditEvent({
+      action: 'create',
+      entityType: 'payments',
+      entityId: paymentId,
+      newValue: insertedPayment,
+      tx,
+    });
+
     return insertedPayment;
+  });
+}
+
+/**
+ * Reverses a payment: marks as reversed, reverses ledger entry, restores installment paid balances,
+ * and reopens the loan if closed.
+ */
+export async function reversePayment(
+  paymentId: string,
+  reversedReason: string,
+  userId: string
+): Promise<any> {
+  return await db.transaction(async (tx) => {
+    // 1. Fetch payment
+    const [payment] = await tx.select()
+      .from(payments)
+      .where(eq(payments.id, paymentId));
+
+    if (!payment) throw new Error('Payment not found');
+    if (payment.reversed) throw new Error('Payment is already reversed');
+
+    // 2. Mark payment as reversed
+    const [updatedPayment] = await tx.update(payments)
+      .set({
+        reversed: true,
+        reversedReason,
+      })
+      .where(eq(payments.id, paymentId))
+      .returning();
+
+    // 3. Adjust installments (subtract principal and interest components)
+    let remPrincipal = parseFloat(payment.principalComponent);
+    let remInterest = parseFloat(payment.interestComponent);
+
+    // Fetch schedules in descending order of installment no (last paid first)
+    const schedules = await tx.select()
+      .from(loanSchedule)
+      .where(eq(loanSchedule.loanId, payment.loanId))
+      .orderBy(desc(loanSchedule.installmentNo));
+
+    for (const s of schedules) {
+      let principalDeduct = 0;
+      let interestDeduct = 0;
+
+      if (remPrincipal > 0 && parseFloat(s.principalPaid) > 0) {
+        principalDeduct = Math.min(remPrincipal, parseFloat(s.principalPaid));
+        remPrincipal -= principalDeduct;
+      }
+
+      if (remInterest > 0 && parseFloat(s.interestPaid) > 0) {
+        interestDeduct = Math.min(remInterest, parseFloat(s.interestPaid));
+        remInterest -= interestDeduct;
+      }
+
+      if (principalDeduct > 0 || interestDeduct > 0) {
+        const newPrincipalPaid = (parseFloat(s.principalPaid) - principalDeduct).toFixed(2);
+        const newInterestPaid = (parseFloat(s.interestPaid) - interestDeduct).toFixed(2);
+        
+        // Determine status
+        let newStatus: 'pending' | 'partial' | 'paid' = 'pending';
+        if (parseFloat(newPrincipalPaid) > 0 || parseFloat(newInterestPaid) > 0) {
+          newStatus = 'partial';
+        }
+
+        await tx.update(loanSchedule)
+          .set({
+            principalPaid: newPrincipalPaid,
+            interestPaid: newInterestPaid,
+            status: newStatus,
+            updatedAt: new Date(),
+          })
+          .where(eq(loanSchedule.id, s.id));
+      }
+    }
+
+    // 4. Post reversal entry to general ledger (Debit to increase customer balance again)
+    const [lastLedger] = await tx.select()
+      .from(ledgerEntries)
+      .where(eq(ledgerEntries.loanId, payment.loanId))
+      .orderBy(desc(ledgerEntries.createdAt))
+      .limit(1);
+
+    const prevBalance = lastLedger ? parseFloat(lastLedger.runningBalance) : 0;
+    const newBalance = (prevBalance + parseFloat(payment.amount)).toFixed(2);
+
+    const [reversalLedger] = await tx.insert(ledgerEntries).values({
+      loanId: payment.loanId,
+      customerId: payment.customerId,
+      txnType: 'reversal',
+      referenceTable: 'payments',
+      referenceId: paymentId,
+      debit: String(payment.amount),
+      credit: '0.00',
+      runningBalance: newBalance,
+      description: `Reversal of payment receipt ${payment.receiptNumber}. Reason: ${reversedReason}`,
+      entryDate: new Date().toISOString().split('T')[0],
+      createdBy: userId,
+    }).returning();
+
+    // 5. Reopen Loan if closed
+    const [loan] = await tx.select().from(loans).where(eq(loans.id, payment.loanId));
+    if (loan.status === 'closed' || loan.status === 'settled') {
+      await tx.update(loans)
+        .set({ status: 'active', closedAt: null, updatedAt: new Date() })
+        .where(eq(loans.id, payment.loanId));
+    }
+
+    // Log the event to audit log
+    await logAuditEvent({
+      action: 'update',
+      entityType: 'payments',
+      entityId: paymentId,
+      oldValue: payment,
+      newValue: updatedPayment,
+      tx,
+    });
+
+    return updatedPayment;
   });
 }
 
@@ -180,6 +311,15 @@ export async function createSettlement(
         updatedAt: new Date(),
       })
       .where(eq(loans.id, loanId));
+
+    // Log the event to audit log
+    await logAuditEvent({
+      action: 'create',
+      entityType: 'settlements',
+      entityId: insertedSettlement.id,
+      newValue: insertedSettlement,
+      tx,
+    });
 
     return insertedSettlement;
   });

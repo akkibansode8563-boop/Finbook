@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, numeric, timestamp, date, boolean, text, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, varchar, numeric, timestamp, date, boolean, text, pgEnum, index } from 'drizzle-orm/pg-core';
 import { users } from './users';
 import { customers } from './customers';
 import { loans, loanSchedule, allocationMethodEnum } from './loans';
@@ -27,7 +27,11 @@ export const payments = pgTable('payments', {
   enteredBy: uuid('entered_by').references(() => users.id).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
-});
+}, (table) => ({
+  receiptNumberIdx: index('payments_receipt_number_idx').on(table.receiptNumber),
+  paymentDateIdx: index('payments_payment_date_idx').on(table.paymentDate),
+  reversedIdx: index('payments_reversed_idx').on(table.reversed),
+}));
 
 export const lateFees = pgTable('late_fees', {
   id: uuid('id').defaultRandom().primaryKey(),

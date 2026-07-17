@@ -42,7 +42,7 @@ export default async function LoansPage({ searchParams }: PageProps) {
       header: 'Principal',
       accessorKey: 'principalAmount',
       render: (row: any) => (
-        <span className="text-emerald-400 font-semibold">{formatCurrency(row.principalAmount)}</span>
+        <span className="text-emerald-400 font-semibold font-mono tabular-nums">{formatCurrency(row.principalAmount)}</span>
       ),
     },
     {

@@ -62,24 +62,24 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
     },
     {
       header: 'Principal Due',
-      render: (row: any) => <span>{formatCurrency(row.principalDue)}</span>,
+      render: (row: any) => <span className="font-mono tabular-nums">{formatCurrency(row.principalDue)}</span>,
     },
     {
       header: 'Interest Due',
-      render: (row: any) => <span>{formatCurrency(row.interestDue)}</span>,
+      render: (row: any) => <span className="font-mono tabular-nums">{formatCurrency(row.interestDue)}</span>,
     },
     {
       header: 'Late Fee Due',
-      render: (row: any) => <span className="text-rose-400">{formatCurrency(row.lateFeeDue)}</span>,
+      render: (row: any) => <span className="text-rose-400 font-mono tabular-nums">{formatCurrency(row.lateFeeDue)}</span>,
     },
     {
       header: 'Total Due',
-      render: (row: any) => <span className="text-slate-900 dark:text-white font-semibold">{formatCurrency(row.totalDue)}</span>,
+      render: (row: any) => <span className="text-slate-900 dark:text-white font-semibold font-mono tabular-nums">{formatCurrency(row.totalDue)}</span>,
     },
     {
       header: 'Paid Components',
       render: (row: any) => (
-        <span className="text-slate-500 dark:text-slate-400 text-xs">
+        <span className="text-slate-500 dark:text-slate-400 text-xs font-mono tabular-nums">
           P: {formatCurrency(row.principalPaid)} | I: {formatCurrency(row.interestPaid)}
         </span>
       ),
@@ -104,7 +104,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
       header: 'Amount Paid',
       accessorKey: 'amount',
       render: (row: any) => (
-        <span className="text-emerald-400 font-bold">{formatCurrency(row.amount)}</span>
+        <span className="text-emerald-400 font-bold font-mono tabular-nums">{formatCurrency(row.amount)}</span>
       ),
     },
     {
@@ -120,7 +120,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
     {
       header: 'Allocation Split',
       render: (row: any) => (
-        <span className="text-slate-500 dark:text-slate-400 text-xs">
+        <span className="text-slate-500 dark:text-slate-400 text-xs font-mono tabular-nums">
           P: {formatCurrency(row.principalComponent)} | I: {formatCurrency(row.interestComponent)} | F: {formatCurrency(row.lateFeeComponent)}
         </span>
       ),
@@ -149,7 +149,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
       header: 'Debit',
       accessorKey: 'debit',
       render: (row: any) => (
-        <span className={parseFloat(row.debit) > 0 ? 'text-rose-400 font-medium' : 'text-slate-500'}>
+        <span className={cn(parseFloat(row.debit) > 0 ? 'text-rose-400 font-medium' : 'text-slate-500', "font-mono tabular-nums")}>
           {parseFloat(row.debit) > 0 ? `+${formatCurrency(row.debit)}` : '—'}
         </span>
       ),
@@ -158,7 +158,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
       header: 'Credit',
       accessorKey: 'credit',
       render: (row: any) => (
-        <span className={parseFloat(row.credit) > 0 ? 'text-emerald-400 font-medium' : 'text-slate-500'}>
+        <span className={cn(parseFloat(row.credit) > 0 ? 'text-emerald-400 font-medium' : 'text-slate-500', "font-mono tabular-nums")}>
           {parseFloat(row.credit) > 0 ? `-${formatCurrency(row.credit)}` : '—'}
         </span>
       ),
@@ -167,7 +167,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
       header: 'Balance',
       accessorKey: 'runningBalance',
       render: (row: any) => (
-        <span className="text-slate-900 dark:text-white font-bold font-mono">{formatCurrency(row.runningBalance)}</span>
+        <span className="text-slate-900 dark:text-white font-bold font-mono tabular-nums">{formatCurrency(row.runningBalance)}</span>
       ),
     },
     {
@@ -207,7 +207,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
             <CardHeader className="border-b border-slate-200 dark:border-slate-800/60 pb-4">
               <span className="text-[10px] uppercase font-bold text-violet-400 tracking-wider">Lending Summary</span>
               <div className="flex justify-between items-center mt-2">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">{formatCurrency(loan.principalAmount)}</h3>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display font-mono tabular-nums">{formatCurrency(loan.principalAmount)}</h3>
                 <StatusBadge status={loan.status} />
               </div>
             </CardHeader>

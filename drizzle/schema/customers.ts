@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, boolean, timestamp, numeric, text, date, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, varchar, boolean, timestamp, numeric, text, date, pgEnum, index } from 'drizzle-orm/pg-core';
 import { users } from './users';
 
 export const docTypeEnum = pgEnum('doc_type', ['aadhaar', 'pan', 'voter_id', 'passport', 'other']);
@@ -20,7 +20,11 @@ export const customers = pgTable('customers', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
-});
+}, (table) => ({
+  fullNameIdx: index('customers_full_name_idx').on(table.fullName),
+  phoneIdx: index('customers_phone_idx').on(table.phone),
+  codeIdx: index('customers_code_idx').on(table.customerCode),
+}));
 
 export const customerIdentityDocuments = pgTable('customer_identity_documents', {
   id: uuid('id').defaultRandom().primaryKey(),

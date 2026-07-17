@@ -58,7 +58,7 @@ export default async function GlobalLedgerPage() {
       header: 'Debit (+)',
       accessorKey: 'debit',
       render: (row: any) => (
-        <span className={parseFloat(row.debit) > 0 ? 'text-rose-400 font-medium' : 'text-slate-500'}>
+        <span className={cn(parseFloat(row.debit) > 0 ? 'text-rose-400 font-medium' : 'text-slate-500', "font-mono tabular-nums")}>
           {parseFloat(row.debit) > 0 ? `+${formatCurrency(row.debit)}` : '—'}
         </span>
       ),
@@ -67,7 +67,7 @@ export default async function GlobalLedgerPage() {
       header: 'Credit (-)',
       accessorKey: 'credit',
       render: (row: any) => (
-        <span className={parseFloat(row.credit) > 0 ? 'text-emerald-400 font-medium' : 'text-slate-500'}>
+        <span className={cn(parseFloat(row.credit) > 0 ? 'text-emerald-400 font-medium' : 'text-slate-500', "font-mono tabular-nums")}>
           {parseFloat(row.credit) > 0 ? `-${formatCurrency(row.credit)}` : '—'}
         </span>
       ),
@@ -76,7 +76,7 @@ export default async function GlobalLedgerPage() {
       header: 'Balance',
       accessorKey: 'runningBalance',
       render: (row: any) => (
-        <span className="text-slate-900 dark:text-white font-bold font-mono">{formatCurrency(row.runningBalance)}</span>
+        <span className="text-slate-900 dark:text-white font-bold font-mono tabular-nums">{formatCurrency(row.runningBalance)}</span>
       ),
     },
     {

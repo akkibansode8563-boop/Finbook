@@ -2,16 +2,17 @@
 
 import { requireStaff } from '@/lib/auth/rbac';
 import { loanSchema, type LoanFormInput } from './schema';
-import { createLoan, softDeleteLoan } from './repository';
+import { createLoan, softDeleteLoan, restoreLoan } from './repository';
 import { generateRepaymentSchedule } from '../interest-engine/schedule-generator';
 import { revalidatePath } from 'next/cache';
+import { handleDatabaseError } from '@/lib/db/errors';
 
-export async function createLoanAction(formData: LoanFormInput) {
+export async function createLoanAction(formData: LoanFormInput): Promise<{ success: boolean; loanId?: string; error?: string }> {
   const { profile } = await requireStaff();
 
   const result = loanSchema.safeParse(formData);
   if (!result.success) {
-    return { error: result.error.issues[0].message };
+    return { success: false, error: result.error.issues[0].message };
   }
 
   const {
@@ -48,7 +49,7 @@ export async function createLoanAction(formData: LoanFormInput) {
   });
 
   if (scheduleItems.length === 0) {
-    return { error: 'Failed to generate schedule. Check tenure and frequency values.' };
+    return { success: false, error: 'Failed to generate schedule. Check tenure and frequency values.' };
   }
 
   // Calculate end date based on final installment due date
@@ -85,20 +86,32 @@ export async function createLoanAction(formData: LoanFormInput) {
     revalidatePath(`/customers/${customerId}`);
     return { success: true, loanId: newLoan.id };
   } catch (error: any) {
-    console.error('Failed to originate loan:', error);
-    return { error: error.message || 'An unexpected error occurred.' };
+    return { success: false, ...handleDatabaseError(error) };
   }
 }
 
-export async function deleteLoanAction(loanId: string) {
+export async function deleteLoanAction(loanId: string): Promise<{ success: boolean; error?: string }> {
   await requireStaff();
 
   try {
     await softDeleteLoan(loanId);
     revalidatePath('/loans');
+    revalidatePath('/audit-logs');
     return { success: true };
   } catch (error: any) {
-    console.error('Failed to delete loan:', error);
-    return { error: error.message || 'An unexpected error occurred.' };
+    return { success: false, ...handleDatabaseError(error) };
+  }
+}
+
+export async function restoreLoanAction(loanId: string): Promise<{ success: boolean; error?: string }> {
+  await requireStaff();
+
+  try {
+    await restoreLoan(loanId);
+    revalidatePath('/loans');
+    revalidatePath('/audit-logs');
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, ...handleDatabaseError(error) };
   }
 }

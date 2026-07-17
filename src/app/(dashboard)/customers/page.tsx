@@ -51,7 +51,7 @@ export default async function CustomersPage({ searchParams }: PageProps) {
       header: 'Monthly Income',
       accessorKey: 'monthlyIncome',
       render: (row: any) => (
-        <span className="text-emerald-400 font-semibold">{formatCurrency(row.monthlyIncome)}</span>
+        <span className="text-emerald-400 font-semibold font-mono tabular-nums">{formatCurrency(row.monthlyIncome)}</span>
       ),
     },
     {

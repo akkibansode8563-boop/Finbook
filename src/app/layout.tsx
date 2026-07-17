@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { QueryProvider } from '@/components/providers/query-provider';
 import { ToastProvider } from '@/components/providers/toast-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-});
+const fraunces = Fraunces({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600"] });
+const inter = Inter({ variable: "--font-sans", subsets: ["latin"] });
+const jetbrainsMono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'FINBOOK — Loan Management System',
@@ -21,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
         <ThemeProvider>
           <QueryProvider>

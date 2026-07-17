@@ -46,7 +46,7 @@ export default async function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-black text-slate-900 dark:text-white">{kpis.activeLoansCount}</div>
             <p className="text-[10px] text-slate-500 mt-1">
-              Overdue accounts: <span className="text-rose-400 font-bold">{kpis.overdueLoansCount}</span>
+              Overdue accounts: <span className="text-destructive font-bold font-mono tabular-nums">{kpis.overdueLoansCount}</span>
             </p>
           </CardContent>
         </Card>
@@ -60,7 +60,7 @@ export default async function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-black text-emerald-400">{formatCurrency(kpis.totalDisbursed)}</div>
+            <div className="text-2xl font-black text-emerald-400 font-mono tabular-nums">{formatCurrency(kpis.totalDisbursed)}</div>
             <p className="text-[10px] text-slate-500 mt-1">Cumulative principal disbursed</p>
           </CardContent>
         </Card>
@@ -74,7 +74,7 @@ export default async function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-black text-emerald-400">{formatCurrency(kpis.totalCollected)}</div>
+            <div className="text-2xl font-black text-emerald-400 font-mono tabular-nums">{formatCurrency(kpis.totalCollected)}</div>
             <p className="text-[10px] text-slate-500 mt-1">Cumulative repayment collections</p>
           </CardContent>
         </Card>
@@ -88,7 +88,7 @@ export default async function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-black text-slate-900 dark:text-white">{formatCurrency(kpis.totalOutstanding)}</div>
+            <div className="text-2xl font-black text-foreground font-mono tabular-nums">{formatCurrency(kpis.totalOutstanding)}</div>
             <p className="text-[10px] text-slate-500 mt-1">Remaining principal, interest, and fees</p>
           </CardContent>
         </Card>
@@ -127,7 +127,7 @@ export default async function DashboardPage() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <strong className="text-emerald-400 font-bold block">{formatCurrency(p.amount)}</strong>
+                      <strong className="text-emerald-400 font-bold block font-mono tabular-nums">{formatCurrency(p.amount)}</strong>
                       <span className="text-[10px] text-slate-500 block mt-0.5">{p.paymentDate}</span>
                     </div>
                   </div>
@@ -164,7 +164,7 @@ export default async function DashboardPage() {
                     <div className="text-right">
                       <span className="text-slate-500 dark:text-slate-400 font-semibold block">{c.phone}</span>
                       <span className="text-[10px] text-slate-500 block mt-0.5">
-                        Income: {formatCurrency(c.monthlyIncome)}/mo
+                        Income: <span className="font-mono tabular-nums">{formatCurrency(c.monthlyIncome)}</span>/mo
                       </span>
                     </div>
                   </div>

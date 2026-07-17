@@ -4,7 +4,8 @@ import { cn } from '@/lib/utils';
 export type StatusType = 
   | 'active' | 'closed' | 'overdue' | 'settled' | 'defaulted' | 'written_off'
   | 'pending' | 'paid' | 'partial' | 'waived'
-  | 'admin' | 'manager' | 'staff' | 'viewer';
+  | 'admin' | 'manager' | 'staff' | 'viewer'
+  | 'approved' | 'rejected';
 
 interface StatusBadgeProps {
   status: StatusType | string;
@@ -23,11 +24,13 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
     defaulted: 'bg-red-500/10 text-red-400 border border-red-500/20',
     written_off: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
     
-    // Installment status
+    // Installment/Approval status
     pending: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
     paid: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
     partial: 'bg-sky-500/10 text-sky-400 border border-sky-500/20',
     waived: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    approved: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    rejected: 'bg-rose-500/10 text-rose-400 border border-rose-500/20',
     
     // Roles
     admin: 'bg-violet-500/10 text-violet-400 border border-violet-500/20 font-bold',
