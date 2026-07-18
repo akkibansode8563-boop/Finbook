@@ -18,6 +18,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Plus, Trash2, User, Landmark, ShieldAlert, FileDigit } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface CustomerFormProps {
   initialData?: any;
@@ -26,6 +27,7 @@ interface CustomerFormProps {
 }
 
 export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: CustomerFormProps) {
+  const [isPending, startTransition] = useTransition();
   const [activeTab, setActiveTab] = useState('basic');
 
   const {
@@ -70,20 +72,48 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 p-1.5 rounded-xl h-14">
-          <TabsTrigger value="basic" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+        <TabsList className="grid w-full grid-cols-4 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 p-1.5 rounded-xl h-14 relative">
+          <TabsTrigger value="basic" className="relative rounded-lg py-2.5 text-xs font-semibold gap-2 z-10 hover:text-foreground/80 data-[state=active]:text-white select-none transition-colors">
+            {activeTab === 'basic' && (
+              <motion.span
+                layoutId="active-customer-tab"
+                className="absolute inset-0 bg-primary rounded-lg -z-10 shadow-sm"
+                transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+              />
+            )}
             <User className="w-4 h-4" />
             <span>Profile</span>
           </TabsTrigger>
-          <TabsTrigger value="kyc" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+          <TabsTrigger value="kyc" className="relative rounded-lg py-2.5 text-xs font-semibold gap-2 z-10 hover:text-foreground/80 data-[state=active]:text-white select-none transition-colors">
+            {activeTab === 'kyc' && (
+              <motion.span
+                layoutId="active-customer-tab"
+                className="absolute inset-0 bg-primary rounded-lg -z-10 shadow-sm"
+                transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+              />
+            )}
             <FileDigit className="w-4 h-4" />
             <span>Identity KYC</span>
           </TabsTrigger>
-          <TabsTrigger value="bank" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+          <TabsTrigger value="bank" className="relative rounded-lg py-2.5 text-xs font-semibold gap-2 z-10 hover:text-foreground/80 data-[state=active]:text-white select-none transition-colors">
+            {activeTab === 'bank' && (
+              <motion.span
+                layoutId="active-customer-tab"
+                className="absolute inset-0 bg-primary rounded-lg -z-10 shadow-sm"
+                transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+              />
+            )}
             <Landmark className="w-4 h-4" />
             <span>Bank Account</span>
           </TabsTrigger>
-          <TabsTrigger value="guarantor" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+          <TabsTrigger value="guarantor" className="relative rounded-lg py-2.5 text-xs font-semibold gap-2 z-10 hover:text-foreground/80 data-[state=active]:text-white select-none transition-colors">
+            {activeTab === 'guarantor' && (
+              <motion.span
+                layoutId="active-customer-tab"
+                className="absolute inset-0 bg-primary rounded-lg -z-10 shadow-sm"
+                transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+              />
+            )}
             <ShieldAlert className="w-4 h-4" />
             <span>Guarantors</span>
           </TabsTrigger>

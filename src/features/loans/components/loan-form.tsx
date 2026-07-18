@@ -21,6 +21,7 @@ import { formatCurrency } from '@/lib/utils/currency';
 import { ArrowRight, ArrowLeft, Coins, Check, Calendar, Info } from 'lucide-react';
 import { toast } from 'sonner';
 import { formatDateDDMMYYYY } from '@/lib/utils/date';
+import { motion } from 'framer-motion';
 
 interface LoanFormProps {
   customers: { id: string; fullName: string; customerCode: string }[];
@@ -118,8 +119,10 @@ export function LoanForm({
           {/* Step indicators */}
           <div className="flex gap-1.5 select-none">
             {[1, 2, 3].map((s) => (
-              <span
+              <motion.span
                 key={s}
+                animate={{ scale: step === s ? 1.15 : 1 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border transition-colors ${
                   step === s
                     ? 'bg-primary border-primary text-white'
@@ -129,7 +132,7 @@ export function LoanForm({
                 }`}
               >
                 {step > s ? <Check className="w-3 h-3" /> : s}
-              </span>
+              </motion.span>
             ))}
           </div>
         </div>

@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, Bell, LogOut, Shield } from 'lucide-react';
 import { toast } from 'sonner';
 import { ThemeToggle } from './theme-toggle';
+import { CommandPalette } from './command-palette';
 
 interface TopbarProps {
   userName: string;
@@ -53,6 +54,9 @@ export function Topbar({ userName, userEmail, role }: TopbarProps) {
           System Active
         </span>
       </div>
+
+      {/* Command Palette search trigger */}
+      <CommandPalette />
 
       {/* Right side: Theme Toggle + Notifications + User menu */}
       <div className="flex items-center gap-3">

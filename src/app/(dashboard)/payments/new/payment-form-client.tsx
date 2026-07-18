@@ -6,6 +6,8 @@ import { recordPaymentAction } from '@/features/payments/actions';
 import { PaymentForm } from '@/features/payments/components/payment-form';
 import { toast } from 'sonner';
 
+import { triggerConfetti } from '@/lib/utils/confetti';
+
 interface PaymentFormClientProps {
   loans: {
     id: string;
@@ -29,6 +31,7 @@ export function PaymentFormClient({ loans, preselectedLoanId }: PaymentFormClien
       if (result.error) {
         toast.error(result.error);
       } else {
+        triggerConfetti();
         toast.success('Payment receipt recorded successfully and ledger credited!');
         router.push(`/loans/${data.loanId}`);
         router.refresh();

@@ -6,6 +6,8 @@ import { createLoanAction } from '@/features/loans/actions';
 import { LoanForm } from '@/features/loans/components/loan-form';
 import { toast } from 'sonner';
 
+import { triggerConfetti } from '@/lib/utils/confetti';
+
 interface LoanFormClientProps {
   customers: { id: string; fullName: string; customerCode: string }[];
   preselectedCustomerId?: string;
@@ -21,6 +23,7 @@ export function LoanFormClient({ customers, preselectedCustomerId }: LoanFormCli
       if (result.error) {
         toast.error(result.error);
       } else {
+        triggerConfetti();
         toast.success('Loan originated successfully and principal disbursed!');
         router.push(`/loans/${result.loanId}`);
         router.refresh();

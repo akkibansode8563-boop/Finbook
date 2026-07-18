@@ -193,3 +193,32 @@
     transparent
   );
 }
+
+/* Premium Glassmorphic Card Utilities */
+.bg-card-glass {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(221, 214, 196, 0.5);
+}
+
+.dark .bg-card-glass {
+  background-color: rgba(19, 31, 53, 0.60);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(34, 50, 82, 0.40);
+}
+
+/* Ambient Glow Shadows */
+.glow-primary {
+  box-shadow: 0 12px 40px -12px rgba(15, 92, 87, 0.08);
+}
+.glow-brass {
+  box-shadow: 0 12px 40px -12px rgba(184, 135, 61, 0.08);
+}
+.dark .glow-primary {
+  box-shadow: 0 12px 40px -12px rgba(42, 143, 134, 0.12);
+}
+.dark .glow-brass {
+  box-shadow: 0 12px 40px -12px rgba(184, 135, 61, 0.12);
+}

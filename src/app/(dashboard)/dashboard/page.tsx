@@ -4,6 +4,7 @@ import { Breadcrumbs } from '@/components/layout/breadcrumbs';
 import { PageHeader } from '@/components/layout/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { DashboardCharts } from '@/features/dashboard/components/dashboard-charts';
+import { KPIGrid } from '@/features/dashboard/components/kpi-grid';
 import { formatCurrency } from '@/lib/utils/currency';
 import { StatusBadge } from '@/components/shared/status-badge';
 import {
@@ -34,65 +35,7 @@ export default async function DashboardPage() {
       />
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        {/* KPI 1: Active Loan Accounts */}
-        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Active Accounts</span>
-            <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
-              <Banknote className="w-4 h-4 text-primary" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-black text-slate-900 dark:text-white">{kpis.activeLoansCount}</div>
-            <p className="text-[10px] text-slate-500 mt-1">
-              Overdue accounts: <span className="text-destructive font-bold font-mono tabular-nums">{kpis.overdueLoansCount}</span>
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* KPI 2: Total Disbursed */}
-        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Total Disbursed</span>
-            <div className="w-8 h-8 rounded-lg bg-brass/10 border border-brass/20 flex items-center justify-center">
-              <Landmark className="w-4 h-4 text-brass" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-black text-emerald-400 font-mono tabular-nums">{formatCurrency(kpis.totalDisbursed)}</div>
-            <p className="text-[10px] text-slate-500 mt-1">Cumulative principal disbursed</p>
-          </CardContent>
-        </Card>
-
-        {/* KPI 3: Total Collected */}
-        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Total Collected</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-600/10 border border-emerald-500/20 flex items-center justify-center">
-              <Receipt className="w-4 h-4 text-emerald-400" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-black text-emerald-400 font-mono tabular-nums">{formatCurrency(kpis.totalCollected)}</div>
-            <p className="text-[10px] text-slate-500 mt-1">Cumulative repayment collections</p>
-          </CardContent>
-        </Card>
-
-        {/* KPI 4: Active Portfolio Outstanding */}
-        <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Outstanding Balance</span>
-            <div className="w-8 h-8 rounded-lg bg-rose-600/10 border border-rose-500/20 flex items-center justify-center">
-              <Coins className="w-4 h-4 text-rose-400" />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-black text-foreground font-mono tabular-nums">{formatCurrency(kpis.totalOutstanding)}</div>
-            <p className="text-[10px] text-slate-500 mt-1">Remaining principal, interest, and fees</p>
-          </CardContent>
-        </Card>
-      </div>
+      <KPIGrid kpis={kpis} />
 
       {/* Recharts Analytics Panel */}
       <DashboardCharts
