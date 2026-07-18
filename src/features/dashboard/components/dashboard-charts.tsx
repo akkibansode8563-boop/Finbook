@@ -16,6 +16,8 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { formatCurrency } from '@/lib/utils/currency';
 
+import { motion } from 'framer-motion';
+
 interface ChartProps {
   trendData: {
     month: string;
@@ -39,9 +41,16 @@ export function DashboardCharts({ trendData, portfolioDistribution }: ChartProps
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Bar Chart: Disbursements vs Collections */}
-      <Card className="lg:col-span-2 bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        whileHover={{ y: -2 }}
+        className="lg:col-span-2 transition-all duration-300 hover:shadow-md hover:shadow-primary/5 rounded-xl"
+      >
+        <Card className="h-full bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="text-white text-base">Collections vs Disbursements Trend</CardTitle>
+          <CardTitle className="text-foreground text-base">Collections vs Disbursements Trend</CardTitle>
           <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Comparison of credit capital disbursed vs cash repayments collected over the last 6 months.</CardDescription>
         </CardHeader>
         <CardContent className="h-[300px] w-full pt-4">
@@ -96,18 +105,26 @@ export function DashboardCharts({ trendData, portfolioDistribution }: ChartProps
           </ResponsiveContainer>
         </CardContent>
       </Card>
+      </motion.div>
 
       {/* Pie Chart: Portfolio Distribution */}
-      <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle className="text-white text-base">Lending Portfolio Mix</CardTitle>
-          <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Distribution of loan accounts by status.</CardDescription>
-        </CardHeader>
-        <CardContent className="h-[300px] flex flex-col justify-center items-center relative">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
+        whileHover={{ y: -2 }}
+        className="transition-all duration-300 hover:shadow-md hover:shadow-primary/5 rounded-xl"
+      >
+        <Card className="h-full bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle className="text-foreground text-base">Lending Portfolio Mix</CardTitle>
+            <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Distribution of loan accounts by status.</CardDescription>
+          </CardHeader>
+          <CardContent className="h-[300px] flex flex-col justify-center items-center relative">
           {isPieEmpty ? (
             <div className="text-center p-6">
-              <p className="text-slate-500 text-sm">No data available</p>
-              <p className="text-slate-600 text-xs mt-1">Originate loans to see status distribution.</p>
+               <p className="text-slate-500 text-sm">No data available</p>
+               <p className="text-slate-600 text-xs mt-1">Originate loans to see status distribution.</p>
             </div>
           ) : (
             <>
@@ -148,6 +165,7 @@ export function DashboardCharts({ trendData, portfolioDistribution }: ChartProps
           )}
         </CardContent>
       </Card>
+      </motion.div>
     </div>
   );
 }
