@@ -25,7 +25,7 @@ export default async function LoansPage({ searchParams }: PageProps) {
       header: 'Loan ID',
       accessorKey: 'loanNumber',
       render: (row: any) => (
-        <span className="font-mono text-xs text-violet-400 bg-violet-600/10 px-2.5 py-1 rounded-md border border-violet-500/15">
+        <span className="font-mono text-xs text-primary bg-primary/10 px-2.5 py-1 rounded-md border border-primary/15">
           {row.loanNumber}
         </span>
       ),
@@ -33,7 +33,7 @@ export default async function LoansPage({ searchParams }: PageProps) {
     {
       header: 'Customer',
       render: (row: any) => (
-        <Link href={`/customers/${row.customer.id}`} className="text-slate-900 dark:text-white hover:text-violet-500 hover:underline font-semibold transition-colors">
+        <Link href={`/customers/${row.customer.id}`} className="text-slate-900 dark:text-white hover:text-primary hover:underline font-semibold transition-colors">
           {row.customer.fullName}
         </Link>
       ),
@@ -105,7 +105,7 @@ export default async function LoansPage({ searchParams }: PageProps) {
             href="/loans/new"
             className={cn(
               buttonVariants({ variant: 'default' }),
-              'bg-violet-600 hover:bg-violet-700 text-white font-semibold shadow-lg shadow-violet-500/10 gap-2 h-10 px-4'
+              'bg-primary hover:bg-primary/95 text-white font-semibold shadow-sm gap-2 h-10 px-4'
             )}
           >
             <Plus className="w-4 h-4" /> Originate Credit Line
@@ -124,7 +124,7 @@ export default async function LoansPage({ searchParams }: PageProps) {
               className={cn(
                 buttonVariants({ variant: isActive ? 'default' : 'ghost', size: 'sm' }),
                 isActive
-                  ? 'bg-violet-600 text-white hover:bg-violet-700 h-8'
+                  ? 'bg-primary text-white hover:bg-primary/95 h-8'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:bg-slate-900 h-8'
               )}
             >
@@ -146,7 +146,7 @@ export default async function LoansPage({ searchParams }: PageProps) {
             href="/loans/new"
             className={cn(
               buttonVariants({ variant: 'default' }),
-              'bg-violet-600 hover:bg-violet-700 text-white'
+              'bg-primary hover:bg-primary/95 text-white'
             )}
           >
             Originate Loan

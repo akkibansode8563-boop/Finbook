@@ -112,7 +112,7 @@ export function LoanForm({
       <CardHeader className="border-b border-slate-200 dark:border-slate-800 pb-4">
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle className="text-white text-base">New Loan Origination</CardTitle>
+            <CardTitle className="text-foreground text-base">New Loan Origination</CardTitle>
             <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Originate a new credit line and generate repayment schedule installments.</CardDescription>
           </div>
           {/* Step indicators */}
@@ -122,9 +122,9 @@ export function LoanForm({
                 key={s}
                 className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border transition-colors ${
                   step === s
-                    ? 'bg-violet-600 border-violet-500 text-white'
+                    ? 'bg-primary border-primary text-white'
                     : step > s
-                    ? 'bg-slate-800 border-slate-700 text-emerald-400'
+                    ? 'bg-slate-800 border-slate-700 text-emerald-450'
                     : 'bg-slate-50 dark:bg-slate-950 border-slate-900 text-slate-500'
                 }`}
               >
@@ -166,8 +166,8 @@ export function LoanForm({
 
             {selectedCustomer && (
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-50 dark:bg-slate-950/40 space-y-2">
-                <span className="text-[10px] uppercase font-bold text-violet-400">Customer profile Selected</span>
-                <h3 className="text-sm font-bold text-white">{selectedCustomer.fullName}</h3>
+                <span className="text-[10px] uppercase font-bold text-primary">Customer profile Selected</span>
+                <h3 className="text-sm font-bold text-foreground">{selectedCustomer.fullName}</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400">Customer Code: {selectedCustomer.customerCode}</p>
               </div>
             )}
@@ -177,7 +177,7 @@ export function LoanForm({
                 type="button"
                 disabled={!watchedValues.customerId}
                 onClick={handleNext}
-                className="bg-violet-600 hover:bg-violet-700 text-white gap-1.5 disabled:opacity-50 disabled:pointer-events-none"
+                className="bg-primary hover:bg-primary/95 text-white gap-1.5 disabled:opacity-50 disabled:pointer-events-none"
               >
                 <span>Configure Terms</span>
                 <ArrowRight className="w-4 h-4" />
@@ -365,7 +365,7 @@ export function LoanForm({
                   !watchedValues.tenureValue
                 }
                 onClick={handleNext}
-                className="bg-violet-600 hover:bg-violet-700 text-white gap-1.5 disabled:opacity-50 disabled:pointer-events-none"
+                className="bg-primary hover:bg-primary/95 text-white gap-1.5 disabled:opacity-50 disabled:pointer-events-none"
               >
                 <span>Preview Installments</span>
                 <ArrowRight className="w-4 h-4" />
@@ -380,19 +380,19 @@ export function LoanForm({
             <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-50 dark:bg-slate-950/20 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
               <div>
                 <span className="text-slate-500">Customer</span>
-                <strong className="text-white block mt-0.5">{selectedCustomer?.fullName}</strong>
+                <strong className="text-foreground block mt-0.5">{selectedCustomer?.fullName}</strong>
               </div>
               <div>
                 <span className="text-slate-500">Principal Amount</span>
-                <strong className="text-emerald-400 block mt-0.5 font-semibold">{formatCurrency(watchedValues.principalAmount)}</strong>
+                <strong className="text-emerald font-mono block mt-0.5 font-semibold">{formatCurrency(watchedValues.principalAmount)}</strong>
               </div>
               <div>
                 <span className="text-slate-500">Interest Calculation</span>
-                <strong className="text-white block mt-0.5 capitalize">{watchedValues.interestRate}% ({watchedValues.interestType})</strong>
+                <strong className="text-foreground block mt-0.5 capitalize">{watchedValues.interestRate}% ({watchedValues.interestType})</strong>
               </div>
               <div>
                 <span className="text-slate-500">Repayment Plan</span>
-                <strong className="text-white block mt-0.5 capitalize">
+                <strong className="text-foreground block mt-0.5 capitalize">
                   {watchedValues.tenureValue} {watchedValues.tenureUnit} ({watchedValues.loanFrequency})
                 </strong>
               </div>
@@ -400,7 +400,7 @@ export function LoanForm({
 
             <div className="space-y-3">
               <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-                <Info className="w-4 h-4 text-violet-400" />
+                <Info className="w-4 h-4 text-primary" />
                 <span>Verify calculated installments before finalizing disbursement.</span>
               </div>
 
@@ -423,7 +423,7 @@ export function LoanForm({
                         <TableCell className="py-2.5 px-3 text-slate-700 dark:text-slate-300 text-xs">{formatDateDDMMYYYY(inst.dueDate)}</TableCell>
                         <TableCell className="py-2.5 px-3 text-slate-700 dark:text-slate-300 text-xs">{formatCurrency(inst.principalDue)}</TableCell>
                         <TableCell className="py-2.5 px-3 text-slate-700 dark:text-slate-300 text-xs">{formatCurrency(inst.interestDue)}</TableCell>
-                        <TableCell className="py-2.5 px-3 text-white text-xs font-semibold">{formatCurrency(inst.totalDue)}</TableCell>
+                        <TableCell className="py-2.5 px-3 text-foreground text-xs font-semibold">{formatCurrency(inst.totalDue)}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -450,7 +450,7 @@ export function LoanForm({
                   }
                 )}
                 disabled={isSubmitting}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold gap-1.5 px-6 shadow-lg shadow-emerald-500/10"
+                className="bg-emerald hover:bg-emerald/90 text-white font-semibold gap-1.5 px-6 shadow-sm"
               >
                 <Coins className="w-4 h-4" />
                 <span>{isSubmitting ? 'Originating...' : 'Confirm & Disburse'}</span>

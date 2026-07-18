@@ -42,12 +42,12 @@ export function ExportButtonClient({ exportFn, filename }: ExportButtonProps) {
     >
       {isPending ? (
         <>
-          <RefreshCw className="w-4 h-4 animate-spin text-violet-400" />
+          <RefreshCw className="w-4 h-4 animate-spin text-primary" />
           <span>Compiling...</span>
         </>
       ) : (
         <>
-          <FileDown className="w-4 h-4 text-violet-400" />
+          <FileDown className="w-4 h-4 text-primary" />
           <span>Export CSV</span>
         </>
       )}

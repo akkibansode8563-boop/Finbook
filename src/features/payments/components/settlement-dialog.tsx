@@ -84,8 +84,8 @@ export function SettlementDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-white text-lg font-bold flex items-center gap-2">
-            <Scale className="w-5 h-5 text-violet-400" />
+          <DialogTitle className="text-foreground text-lg font-bold flex items-center gap-2">
+            <Scale className="w-5 h-5 text-primary" />
             <span>Settle Loan Account</span>
           </DialogTitle>
           <DialogDescription className="text-slate-500 dark:text-slate-400 text-xs mt-1">
@@ -152,7 +152,7 @@ export function SettlementDialog({
             <Button
               type="submit"
               disabled={isPending || !settlementAmountVal}
-              className="bg-violet-600 hover:bg-violet-700 text-white font-semibold shadow-lg shadow-violet-500/10"
+              className="bg-primary hover:bg-primary/95 text-white font-semibold shadow-sm"
             >
               {isPending ? 'Processing...' : 'Settle Account'}
             </Button>

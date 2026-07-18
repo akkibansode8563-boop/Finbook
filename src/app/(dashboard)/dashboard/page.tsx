@@ -39,8 +39,8 @@ export default async function DashboardPage() {
         <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Active Accounts</span>
-            <div className="w-8 h-8 rounded-lg bg-violet-600/10 border border-violet-500/20 flex items-center justify-center">
-              <Banknote className="w-4 h-4 text-violet-400" />
+            <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <Banknote className="w-4 h-4 text-primary" />
             </div>
           </CardHeader>
           <CardContent>
@@ -55,8 +55,8 @@ export default async function DashboardPage() {
         <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase">Total Disbursed</span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center">
-              <Landmark className="w-4 h-4 text-indigo-400" />
+            <div className="w-8 h-8 rounded-lg bg-brass/10 border border-brass/20 flex items-center justify-center">
+              <Landmark className="w-4 h-4 text-brass" />
             </div>
           </CardHeader>
           <CardContent>
@@ -120,7 +120,7 @@ export default async function DashboardPage() {
                         <ArrowDownLeft className="w-4 h-4 text-emerald-400" />
                       </div>
                       <div className="truncate">
-                        <Link href={`/customers/${p.customer.id}`} className="font-bold text-slate-900 dark:text-white hover:text-violet-500 dark:hover:text-violet-400 hover:underline block">
+                        <Link href={`/customers/${p.customer.id}`} className="font-bold text-slate-900 dark:text-white hover:text-primary hover:underline block">
                           {p.customer.fullName}
                         </Link>
                         <span className="text-[10px] text-slate-500 mt-0.5 block font-mono">Receipt: {p.receiptNumber}</span>
@@ -151,11 +151,11 @@ export default async function DashboardPage() {
                 {recentCustomers.map((c) => (
                   <div key={c.id} className="flex justify-between items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800/60 bg-slate-100/50 dark:bg-slate-50 dark:bg-slate-950/20 hover:bg-slate-100 dark:hover:bg-slate-800/10 transition-all text-xs">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-center shrink-0">
-                        <Users className="w-4 h-4 text-indigo-400" />
+                      <div className="w-8 h-8 rounded-full bg-brass/10 border border-brass/25 flex items-center justify-center shrink-0">
+                        <Users className="w-4 h-4 text-brass" />
                       </div>
                       <div className="truncate">
-                        <Link href={`/customers/${c.id}`} className="font-bold text-slate-900 dark:text-white hover:text-violet-500 dark:hover:text-violet-400 hover:underline block">
+                        <Link href={`/customers/${c.id}`} className="font-bold text-slate-900 dark:text-white hover:text-primary hover:underline block">
                           {c.fullName}
                         </Link>
                         <span className="text-[10px] text-slate-500 mt-0.5 block font-mono">Code: {c.customerCode}</span>

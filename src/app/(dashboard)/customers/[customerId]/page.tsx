@@ -45,7 +45,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
       header: 'Loan Number',
       accessorKey: 'loanNumber',
       render: (row: any) => (
-        <span className="font-mono text-xs text-violet-400 bg-violet-600/10 px-2.5 py-1 rounded-md border border-violet-500/15">
+        <span className="font-mono text-xs text-primary bg-primary/10 px-2.5 py-1 rounded-md border border-primary/15">
           {row.loanNumber}
         </span>
       ),
@@ -133,7 +133,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
         <div className="lg:col-span-1 space-y-6">
           <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm sticky top-20">
             <CardHeader className="text-center pb-4 border-b border-slate-200 dark:border-slate-800/60">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white text-2xl font-extrabold mx-auto shadow-lg uppercase select-none">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-primary to-brass flex items-center justify-center text-white text-2xl font-extrabold mx-auto shadow-lg uppercase select-none">
                 {customer.fullName.substring(0, 2)}
               </div>
               <h2 className="text-lg font-bold text-slate-900 dark:text-white mt-4 font-display">{customer.fullName}</h2>
@@ -183,16 +183,16 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
         <div className="lg:col-span-2 space-y-6">
           <Tabs defaultValue="loans" className="w-full">
             <TabsList className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 p-1 rounded-xl h-11 w-full flex justify-start select-none">
-              <TabsTrigger value="loans" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+              <TabsTrigger value="loans" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-primary data-[state=active]:text-white">
                 Loans ({customerLoans.length})
               </TabsTrigger>
-              <TabsTrigger value="kyc" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+              <TabsTrigger value="kyc" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-primary data-[state=active]:text-white">
                 KYC Docs ({customer.identityDocuments.length})
               </TabsTrigger>
-              <TabsTrigger value="bank" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+              <TabsTrigger value="bank" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-primary data-[state=active]:text-white">
                 Bank Accounts ({customer.bankDetails.length})
               </TabsTrigger>
-              <TabsTrigger value="guarantors" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+              <TabsTrigger value="guarantors" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-primary data-[state=active]:text-white">
                 Guarantors ({customer.guarantors.length})
               </TabsTrigger>
             </TabsList>
@@ -208,8 +208,8 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
                   <Link
                     href={`/loans/new?customerId=${customer.id}`}
                     className={cn(
-                      buttonVariants({ variant: 'default', size: 'sm' }),
-                      'bg-violet-600 hover:bg-violet-700 text-white gap-1'
+                       buttonVariants({ variant: 'default', size: 'sm' }),
+                      'bg-primary hover:bg-primary/95 text-white gap-1'
                     )}
                   >
                     <Plus className="w-4 h-4" /> Originate Loan
@@ -242,7 +242,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
                           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{doc.docType.replace('_', ' ')}</span>
                           <p className="text-sm font-bold text-slate-900 dark:text-white font-mono">{doc.docNumber}</p>
                           {doc.fileUrl && (
-                            <a href={doc.fileUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-violet-400 hover:underline block pt-2">
+                            <a href={doc.fileUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline block pt-2">
                               View Attached Proof
                             </a>
                           )}
@@ -324,7 +324,7 @@ export default async function CustomerDetailPage({ params }: DetailPageProps) {
                         <div className="space-y-2">
                           <div>
                             <span className="text-sm font-bold text-slate-900 dark:text-white block">{g.fullName}</span>
-                            <span className="text-xs text-violet-400 block font-medium capitalize mt-0.5">Relation: {g.relation || 'Co-signer'}</span>
+                             <span className="text-xs text-primary block font-medium capitalize mt-0.5">Relation: {g.relation || 'Co-signer'}</span>
                           </div>
                           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 pt-1">
                             <Phone className="w-3.5 h-3.5 text-slate-600 shrink-0" />

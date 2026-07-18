@@ -24,7 +24,7 @@ export default async function CustomersPage({ searchParams }: PageProps) {
       header: 'Customer Code',
       accessorKey: 'customerCode',
       render: (row: any) => (
-        <span className="font-mono text-xs text-violet-400 bg-violet-600/10 px-2.5 py-1 rounded-md border border-violet-500/15">
+        <span className="font-mono text-xs text-primary bg-primary/10 px-2.5 py-1 rounded-md border border-primary/15">
           {row.customerCode}
         </span>
       ),
@@ -83,7 +83,7 @@ export default async function CustomersPage({ searchParams }: PageProps) {
             href="/customers/new"
             className={cn(
               buttonVariants({ variant: 'default' }),
-              'bg-violet-600 hover:bg-violet-700 text-white font-semibold shadow-lg shadow-violet-500/10 gap-2 h-10 px-4'
+              'bg-primary hover:bg-primary/95 text-white font-semibold shadow-sm gap-2 h-10 px-4'
             )}
           >
             <Plus className="w-4 h-4" /> Register Customer
@@ -119,7 +119,7 @@ export default async function CustomersPage({ searchParams }: PageProps) {
             href="/customers/new"
             className={cn(
               buttonVariants({ variant: 'default' }),
-              'bg-violet-600 hover:bg-violet-700 text-white'
+              'bg-primary hover:bg-primary/95 text-white'
             )}
           >
             Register Customer

@@ -71,19 +71,19 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-4 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 p-1.5 rounded-xl h-14">
-          <TabsTrigger value="basic" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+          <TabsTrigger value="basic" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <User className="w-4 h-4" />
             <span>Profile</span>
           </TabsTrigger>
-          <TabsTrigger value="kyc" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+          <TabsTrigger value="kyc" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <FileDigit className="w-4 h-4" />
             <span>Identity KYC</span>
           </TabsTrigger>
-          <TabsTrigger value="bank" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+          <TabsTrigger value="bank" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <Landmark className="w-4 h-4" />
             <span>Bank Account</span>
           </TabsTrigger>
-          <TabsTrigger value="guarantor" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+          <TabsTrigger value="guarantor" className="rounded-lg py-2.5 text-xs font-semibold gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
             <ShieldAlert className="w-4 h-4" />
             <span>Guarantors</span>
           </TabsTrigger>
@@ -93,58 +93,58 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
         <TabsContent value="basic" className="mt-6">
           <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-white text-base">Basic Profile Details</CardTitle>
+              <CardTitle className="text-foreground text-base">Basic Profile Details</CardTitle>
               <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Enter full name, contact details, and monthly income parameters.</CardDescription>
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-1.5">
                 <Label htmlFor="fullName" className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Full Name *</Label>
-                <Input id="fullName" placeholder="Jane Doe" {...register('fullName')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:border-violet-600 h-10" />
-                {errors.fullName && <p className="text-[11px] text-rose-400 font-medium">{errors.fullName.message}</p>}
+                <Input id="fullName" placeholder="Jane Doe" {...register('fullName')} className="bg-background border-input focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground/50 h-10" />
+                {errors.fullName && <p className="text-[11px] text-destructive font-medium">{errors.fullName.message}</p>}
               </div>
 
               <div className="space-y-1.5">
                 <Label htmlFor="phone" className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Phone Number *</Label>
-                <Input id="phone" placeholder="9876543210" {...register('phone')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:border-violet-600 h-10" />
-                {errors.phone && <p className="text-[11px] text-rose-400 font-medium">{errors.phone.message}</p>}
+                <Input id="phone" placeholder="9876543210" {...register('phone')} className="bg-background border-input focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground/50 h-10" />
+                {errors.phone && <p className="text-[11px] text-destructive font-medium">{errors.phone.message}</p>}
               </div>
 
               <div className="space-y-1.5">
                 <Label htmlFor="altPhone" className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Alternative Phone</Label>
-                <Input id="altPhone" placeholder="optional" {...register('altPhone')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:border-violet-600 h-10" />
+                <Input id="altPhone" placeholder="optional" {...register('altPhone')} className="bg-background border-input focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground/50 h-10" />
               </div>
 
               <div className="space-y-1.5">
                 <Label htmlFor="email" className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Email Address</Label>
-                <Input id="email" type="email" placeholder="jane@example.com" {...register('email')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:border-violet-600 h-10" />
-                {errors.email && <p className="text-[11px] text-rose-400 font-medium">{errors.email.message}</p>}
+                <Input id="email" type="email" placeholder="jane@example.com" {...register('email')} className="bg-background border-input focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground/50 h-10" />
+                {errors.email && <p className="text-[11px] text-destructive font-medium">{errors.email.message}</p>}
               </div>
 
               <div className="space-y-1.5">
                 <Label htmlFor="dob" className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Date of Birth</Label>
-                <Input id="dob" type="date" {...register('dob')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:border-violet-600 h-10" />
+                <Input id="dob" type="date" {...register('dob')} className="bg-background border-input focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground/50 h-10" />
               </div>
 
               <div className="space-y-1.5">
                 <Label htmlFor="occupation" className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Occupation</Label>
-                <Input id="occupation" placeholder="Software Engineer" {...register('occupation')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:border-violet-600 h-10" />
+                <Input id="occupation" placeholder="Software Engineer" {...register('occupation')} className="bg-background border-input focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground/50 h-10" />
               </div>
 
               <div className="space-y-1.5">
                 <Label htmlFor="monthlyIncome" className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Monthly Income (INR)</Label>
-                <Input id="monthlyIncome" type="number" placeholder="50000" {...register('monthlyIncome')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:border-violet-600 h-10" />
-                {errors.monthlyIncome && <p className="text-[11px] text-rose-400 font-medium">{errors.monthlyIncome.message}</p>}
+                <Input id="monthlyIncome" type="number" placeholder="50000" {...register('monthlyIncome')} className="bg-background border-input focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground/50 h-10" />
+                {errors.monthlyIncome && <p className="text-[11px] text-destructive font-medium">{errors.monthlyIncome.message}</p>}
               </div>
 
               <div className="space-y-1.5 md:col-span-2">
                 <Label htmlFor="address" className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Permanent Address *</Label>
-                <Input id="address" placeholder="123 Main St, New Delhi, India" {...register('address')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:border-violet-600 h-10" />
-                {errors.address && <p className="text-[11px] text-rose-400 font-medium">{errors.address.message}</p>}
+                <Input id="address" placeholder="123 Main St, New Delhi, India" {...register('address')} className="bg-background border-input focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground/50 h-10" />
+                {errors.address && <p className="text-[11px] text-destructive font-medium">{errors.address.message}</p>}
               </div>
 
               <div className="space-y-1.5 md:col-span-2">
                 <Label htmlFor="notes" className="text-slate-700 dark:text-slate-300 text-xs font-semibold">Reference Notes</Label>
-                <Input id="notes" placeholder="Any additional customer profiling information" {...register('notes')} className="bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:border-violet-600 h-10" />
+                <Input id="notes" placeholder="Any additional customer profiling information" {...register('notes')} className="bg-background border-input focus:border-primary focus:ring-primary text-foreground placeholder:text-muted-foreground/50 h-10" />
               </div>
             </CardContent>
           </Card>
@@ -155,10 +155,10 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
           <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle className="text-white text-base">Identity KYC Documents</CardTitle>
+                <CardTitle className="text-foreground text-base">Identity KYC Documents</CardTitle>
                 <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Add Aadhaar, PAN Card, passport details, or other proofs.</CardDescription>
               </div>
-              <Button type="button" variant="outline" size="sm" onClick={() => appendId({ docType: 'aadhaar', docNumber: '', fileUrl: '' })} className="gap-1 bg-violet-600/10 text-violet-400 border-violet-500/20 hover:bg-violet-600 hover:text-white">
+              <Button type="button" variant="outline" size="sm" onClick={() => appendId({ docType: 'aadhaar', docNumber: '', fileUrl: '' })} className="gap-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary hover:text-white">
                 <Plus className="w-4 h-4" /> Add Document
               </Button>
             </CardHeader>
@@ -219,10 +219,10 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
           <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle className="text-white text-base">Bank Payout Accounts</CardTitle>
+                <CardTitle className="text-foreground text-base">Bank Payout Accounts</CardTitle>
                 <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Enter checking/savings accounts for loan disbursement and UPI mapping.</CardDescription>
               </div>
-              <Button type="button" variant="outline" size="sm" onClick={() => appendBank({ bankName: '', accountHolderName: '', accountNumber: '', ifscCode: '', upiId: '', isPrimary: false })} className="gap-1 bg-violet-600/10 text-violet-400 border-violet-500/20 hover:bg-violet-600 hover:text-white">
+              <Button type="button" variant="outline" size="sm" onClick={() => appendBank({ bankName: '', accountHolderName: '', accountNumber: '', ifscCode: '', upiId: '', isPrimary: false })} className="gap-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary hover:text-white">
                 <Plus className="w-4 h-4" /> Add Account
               </Button>
             </CardHeader>
@@ -269,7 +269,7 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
                             id={`bankDetails.${index}.isPrimary`}
                             checked={field.value}
                             onCheckedChange={field.onChange}
-                            className="border-slate-200 dark:border-slate-800 data-[state=checked]:bg-violet-600"
+                            className="border-input data-[state=checked]:bg-primary"
                           />
                         )}
                       />
@@ -294,10 +294,10 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
           <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle className="text-white text-base">Loan Guarantor References</CardTitle>
+                <CardTitle className="text-foreground text-base">Loan Guarantor References</CardTitle>
                 <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Add co-signers, family references, or friends linked to this customer account.</CardDescription>
               </div>
-              <Button type="button" variant="outline" size="sm" onClick={() => appendGuarantor({ fullName: '', phone: '', address: '', relation: '', idProofType: 'Aadhaar', idProofNumber: '', idProofUrl: '' })} className="gap-1 bg-violet-600/10 text-violet-400 border-violet-500/20 hover:bg-violet-600 hover:text-white">
+              <Button type="button" variant="outline" size="sm" onClick={() => appendGuarantor({ fullName: '', phone: '', address: '', relation: '', idProofType: 'Aadhaar', idProofNumber: '', idProofUrl: '' })} className="gap-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary hover:text-white">
                 <Plus className="w-4 h-4" /> Add Guarantor
               </Button>
             </CardHeader>
@@ -348,7 +348,7 @@ export function CustomerForm({ initialData, onSubmit, isSubmitting = false }: Cu
       </Tabs>
 
       <div className="flex justify-end gap-3 border-t border-slate-850 pt-6">
-        <Button type="submit" disabled={isSubmitting} className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-6 shadow-lg shadow-violet-500/10">
+        <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/95 text-white font-semibold px-6 shadow-sm">
           {isSubmitting ? 'Saving Customer...' : 'Save Customer Profile'}
         </Button>
       </div>

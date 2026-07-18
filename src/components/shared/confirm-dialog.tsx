@@ -35,7 +35,7 @@ export function ConfirmDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-white text-lg font-bold">{title}</DialogTitle>
+          <DialogTitle className="text-foreground text-lg font-bold">{title}</DialogTitle>
           <DialogDescription className="text-slate-500 dark:text-slate-400 text-sm mt-1">{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter className="mt-6 gap-2 sm:justify-end">
@@ -45,7 +45,7 @@ export function ConfirmDialog({
           <Button
             variant={isDestructive ? 'destructive' : 'default'}
             onClick={onConfirm}
-            className={isDestructive ? '' : 'bg-violet-600 hover:bg-violet-700 text-white'}
+            className={isDestructive ? '' : 'bg-primary hover:bg-primary/95 text-white'}
           >
             {confirmLabel}
           </Button>

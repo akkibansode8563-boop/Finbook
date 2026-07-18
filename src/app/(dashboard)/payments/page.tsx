@@ -18,7 +18,7 @@ export default async function PaymentsLogPage() {
       header: 'Receipt ID',
       accessorKey: 'receiptNumber',
       render: (row: any) => (
-        <span className="font-mono text-xs text-violet-400 bg-violet-600/10 px-2.5 py-1 rounded-md border border-violet-500/15">
+        <span className="font-mono text-xs text-primary bg-primary/10 px-2.5 py-1 rounded-md border border-primary/15">
           {row.receiptNumber}
         </span>
       ),
@@ -26,7 +26,7 @@ export default async function PaymentsLogPage() {
     {
       header: 'Customer',
       render: (row: any) => (
-        <Link href={`/customers/${row.customer.id}`} className="text-slate-900 dark:text-white hover:text-violet-500 font-semibold hover:underline transition-colors">
+        <Link href={`/customers/${row.customer.id}`} className="text-slate-900 dark:text-white hover:text-primary font-semibold hover:underline transition-colors">
           {row.customer.fullName}
         </Link>
       ),
@@ -34,7 +34,7 @@ export default async function PaymentsLogPage() {
     {
       header: 'Loan Account',
       render: (row: any) => (
-        <Link href={`/loans/${row.loan.id}`} className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:text-violet-400 hover:underline">
+        <Link href={`/loans/${row.loan.id}`} className="font-mono text-xs text-slate-700 dark:text-slate-300 hover:text-primary hover:underline">
           {row.loan.loanNumber}
         </Link>
       ),
@@ -98,7 +98,7 @@ export default async function PaymentsLogPage() {
             href="/payments/new"
             className={cn(
               buttonVariants({ variant: 'default' }),
-              'bg-violet-600 hover:bg-violet-700 text-white font-semibold shadow-lg shadow-violet-500/10 gap-2 h-10 px-4'
+              'bg-primary hover:bg-primary/95 text-white font-semibold shadow-sm gap-2 h-10 px-4'
             )}
           >
             <Plus className="w-4 h-4" /> Collect Repayment Cash
@@ -117,7 +117,7 @@ export default async function PaymentsLogPage() {
             href="/payments/new"
             className={cn(
               buttonVariants({ variant: 'default' }),
-              'bg-violet-600 hover:bg-violet-700 text-white'
+              'bg-primary hover:bg-primary/95 text-white'
             )}
           >
             Record Payment

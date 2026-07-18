@@ -54,7 +54,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       {/* Top glowing progress bar */}
       <div 
         ref={progressRef} 
-        className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-violet-500 via-fuchsia-500 to-emerald-500 z-50 shadow-[0_0_10px_rgba(139,92,246,0.6)]" 
+        className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-primary via-brass to-emerald z-50 shadow-[0_0_10px_rgba(15,92,87,0.6)]" 
         style={{ width: '0%' }}
       />
       <div ref={containerRef} className="w-full h-full">

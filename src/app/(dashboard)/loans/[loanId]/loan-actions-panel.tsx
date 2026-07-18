@@ -29,7 +29,7 @@ export function LoanActionsPanel({ loanId, customerId, outstandingBalance, statu
             href={`/payments/new?loanId=${loanId}&customerId=${customerId}`}
             className={cn(
               buttonVariants({ variant: 'default' }),
-              'bg-violet-600 hover:bg-violet-700 text-white font-semibold gap-1.5 shadow-lg shadow-violet-500/10 h-10 px-4'
+              'bg-primary hover:bg-primary/95 text-white font-semibold gap-1.5 shadow-sm h-10 px-4'
             )}
           >
             <Plus className="w-4 h-4" /> Collect Payment

@@ -100,7 +100,7 @@ export function BackupPanel() {
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl mt-6">
       <div className="p-6 border-b border-slate-800 flex items-center gap-3">
-        <div className="p-2 rounded-lg bg-violet-600/10 text-violet-400">
+        <div className="p-2 rounded-lg bg-primary/10 text-primary">
           <Database className="w-5 h-5" />
         </div>
         <div>

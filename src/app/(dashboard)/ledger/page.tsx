@@ -37,7 +37,7 @@ export default async function GlobalLedgerPage() {
     {
       header: 'Customer',
       render: (row: any) => (
-        <Link href={`/customers/${row.customer.id}`} className="text-slate-900 dark:text-white hover:text-violet-500 font-semibold hover:underline transition-colors">
+        <Link href={`/customers/${row.customer.id}`} className="text-slate-900 dark:text-white hover:text-primary font-semibold hover:underline transition-colors">
           {row.customer.fullName}
         </Link>
       ),
@@ -45,7 +45,7 @@ export default async function GlobalLedgerPage() {
     {
       header: 'Loan ID',
       render: (row: any) => (
-        <Link href={`/loans/${row.loan.id}`} className="font-mono text-xs text-violet-400 bg-violet-600/10 px-2.5 py-1 rounded-md border border-violet-500/15">
+        <Link href={`/loans/${row.loan.id}`} className="font-mono text-xs text-primary bg-primary/10 px-2.5 py-1 rounded-md border border-primary/15">
           {row.loan.loanNumber}
         </Link>
       ),

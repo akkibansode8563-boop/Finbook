@@ -223,7 +223,7 @@ export function SettingsForm({ initialData }: SettingsFormProps) {
         <Button
           type="submit"
           disabled={isPending}
-          className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-6 shadow-lg shadow-violet-500/10 h-10"
+          className="bg-primary hover:bg-primary/95 text-white font-semibold px-6 shadow-sm h-10"
         >
           {isPending ? 'Saving Settings...' : 'Save Configuration'}
         </Button>

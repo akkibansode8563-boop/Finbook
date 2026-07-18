@@ -86,11 +86,11 @@ export function AuditLogsClient({ initialLogs }: AuditLogsClientProps) {
       header: 'Action',
       accessorKey: 'action',
       render: (row: any) => {
-        let badgeStyle = 'bg-slate-500/10 text-slate-500 dark:text-slate-400 border-slate-500/20';
-        if (row.action === 'create') badgeStyle = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-        if (row.action === 'update') badgeStyle = 'bg-sky-500/10 text-sky-400 border-sky-500/20';
-        if (row.action === 'delete') badgeStyle = 'bg-rose-500/10 text-rose-400 border-rose-500/20';
-        if (row.action === 'restore') badgeStyle = 'bg-purple-500/10 text-purple-400 border-purple-500/20';
+        let badgeStyle = 'bg-secondary text-secondary-foreground border-border';
+        if (row.action === 'create') badgeStyle = 'bg-emerald/10 text-emerald border-emerald/20';
+        if (row.action === 'update') badgeStyle = 'bg-brass/10 text-brass border-brass/20';
+        if (row.action === 'delete') badgeStyle = 'bg-rust/10 text-rust border-rust/20';
+        if (row.action === 'restore') badgeStyle = 'bg-primary/10 text-primary border-primary/20';
 
         return (
           <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border select-none shrink-0 ${badgeStyle}`}>
@@ -177,7 +177,7 @@ export function AuditLogsClient({ initialLogs }: AuditLogsClientProps) {
           <button
             onClick={() => handleRestore(row)}
             disabled={restoringId !== null}
-            className="flex items-center gap-1 text-[10px] uppercase font-bold text-violet-400 hover:text-violet-300 bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/20 py-1 px-2.5 rounded shadow transition cursor-pointer"
+            className="flex items-center gap-1 text-[10px] uppercase font-bold text-primary hover:text-white bg-primary/10 hover:bg-primary border border-primary/20 py-1 px-2.5 rounded shadow transition cursor-pointer"
           >
             <RotateCcw className="w-3 h-3" />
             Restore

@@ -98,7 +98,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
       header: 'Receipt ID',
       accessorKey: 'receiptNumber',
       render: (row: any) => (
-        <span className="font-mono text-xs text-violet-400">{row.receiptNumber}</span>
+        <span className="font-mono text-xs text-primary">{row.receiptNumber}</span>
       ),
     },
     {
@@ -206,7 +206,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
         <div className="lg:col-span-1 space-y-6">
           <Card className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800/80 backdrop-blur-sm sticky top-20">
             <CardHeader className="border-b border-slate-200 dark:border-slate-800/60 pb-4">
-              <span className="text-[10px] uppercase font-bold text-violet-400 tracking-wider">Lending Summary</span>
+              <span className="text-[10px] uppercase font-bold text-primary tracking-wider">Lending Summary</span>
               <div className="flex justify-between items-center mt-2">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display font-mono tabular-nums">{formatCurrency(loan.principalAmount)}</h3>
                 <StatusBadge status={loan.status} />
@@ -255,7 +255,7 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
                     {loan.customer.fullName.substring(0, 2).toUpperCase()}
                   </div>
                   <div className="truncate min-w-0 flex-grow">
-                    <Link href={`/customers/${loan.customer.id}`} className="text-sm font-bold text-slate-900 dark:text-white hover:text-violet-500 dark:hover:text-violet-400 hover:underline transition-colors block truncate">
+                    <Link href={`/customers/${loan.customer.id}`} className="text-sm font-bold text-slate-900 dark:text-white hover:text-primary hover:underline transition-colors block truncate">
                       {loan.customer.fullName}
                     </Link>
                     <span className="text-[10px] text-slate-500 font-mono block mt-0.5">{loan.customer.customerCode}</span>
@@ -273,13 +273,13 @@ export default async function LoanDetailPage({ params }: DetailPageProps) {
         <div className="lg:col-span-2 space-y-6">
           <Tabs defaultValue="schedule" className="w-full">
             <TabsList className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 p-1 rounded-xl h-11 w-full flex justify-start select-none">
-              <TabsTrigger value="schedule" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+              <TabsTrigger value="schedule" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-primary data-[state=active]:text-white">
                 Repayment Schedule
               </TabsTrigger>
-              <TabsTrigger value="payments" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+              <TabsTrigger value="payments" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-primary data-[state=active]:text-white">
                 Receipts Log ({loanPayments.length})
               </TabsTrigger>
-              <TabsTrigger value="ledger" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-violet-600 data-[state=active]:text-white">
+              <TabsTrigger value="ledger" className="rounded-lg text-xs font-semibold px-4 data-[state=active]:bg-primary data-[state=active]:text-white">
                 General Ledger ({loanLedger.length})
               </TabsTrigger>
             </TabsList>

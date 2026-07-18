@@ -62,13 +62,13 @@ export function Topbar({ userName, userEmail, role }: TopbarProps) {
         {/* Mock Notifications */}
         <Button variant="ghost" size="icon" className="relative text-slate-500 dark:text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
           <Bell className="w-5 h-5" />
-          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-violet-500 ring-2 ring-white dark:ring-slate-900" />
+          <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-primary ring-2 ring-white dark:ring-slate-900" />
         </Button>
 
         {/* User Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center gap-2 outline-none p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white text-xs font-semibold uppercase shadow-inner">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-brass flex items-center justify-center text-white text-xs font-semibold uppercase shadow-inner">
               {userName.substring(0, 2)}
             </div>
           </DropdownMenuTrigger>
@@ -81,7 +81,7 @@ export function Topbar({ userName, userEmail, role }: TopbarProps) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-slate-100 dark:bg-slate-800" />
             <DropdownMenuItem className="focus:bg-slate-100 dark:focus:bg-slate-800 focus:text-slate-900 dark:focus:text-white cursor-pointer gap-2 py-2 text-xs">
-              <Shield className="w-4 h-4 text-violet-500 dark:text-violet-400" />
+              <Shield className="w-4 h-4 text-primary" />
               <span className="capitalize">Role: {role}</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-slate-100 dark:bg-slate-800" />

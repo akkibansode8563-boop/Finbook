@@ -86,7 +86,7 @@ export default async function ReportsPage() {
       title: 'Customers Master Registry',
       description: 'Download registered customer profiles, contact numbers, and KYC details.',
       icon: Users,
-      color: 'text-indigo-400',
+      color: 'text-brass',
       action: exportCustomers,
       filename: 'customers_registry_report.csv',
     },
@@ -94,7 +94,7 @@ export default async function ReportsPage() {
       title: 'Active Loans Portfolio',
       description: 'Export all loan accounts, disbursal dates, principal amounts, and statuses.',
       icon: Banknote,
-      color: 'text-violet-400',
+      color: 'text-primary',
       action: exportLoans,
       filename: 'loans_portfolio_report.csv',
     },
@@ -130,7 +130,7 @@ export default async function ReportsPage() {
           <Card key={idx} className="bg-slate-50/50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-start justify-between pb-2 space-y-0">
               <div className="space-y-1">
-                <CardTitle className="text-white text-base flex items-center gap-2">
+                <CardTitle className="text-foreground text-base flex items-center gap-2">
                   <rep.icon className={`w-5 h-5 ${rep.color}`} />
                   <span>{rep.title}</span>
                 </CardTitle>

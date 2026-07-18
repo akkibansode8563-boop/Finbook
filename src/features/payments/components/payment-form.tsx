@@ -158,7 +158,7 @@ export function PaymentForm({
   return (
     <Card className="bg-slate-50/50 dark:bg-slate-100 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle className="text-white text-base">Collect Repayment Cash</CardTitle>
+        <CardTitle className="text-foreground text-base">Collect Repayment Cash</CardTitle>
         <CardDescription className="text-slate-500 dark:text-slate-400 text-xs">Record payment receipts, allocate splits, and update schedules.</CardDescription>
       </CardHeader>
       <CardContent>
@@ -204,15 +204,15 @@ export function PaymentForm({
             {selectedLoan && (
               <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-50 dark:bg-slate-950/40 space-y-2 md:col-span-2 flex justify-between items-center text-xs">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-violet-400">Customer profile Mapped</span>
-                  <h3 className="text-sm font-bold text-white mt-1">{selectedLoan.customer.fullName}</h3>
+                  <span className="text-[10px] uppercase font-bold text-primary">Customer profile Mapped</span>
+                  <h3 className="text-sm font-bold text-foreground mt-1">{selectedLoan.customer.fullName}</h3>
                   <p className="text-slate-500 dark:text-slate-400 mt-0.5">Code: {selectedLoan.customer.customerCode}</p>
                 </div>
                 <div className="text-right">
                   <span className="text-slate-500">Remaining Loan Outstanding</span>
                   {isLoadingSchedules ? (
                     <div className="flex justify-end pt-1">
-                      <RefreshCw className="w-4 h-4 text-violet-400 animate-spin" />
+                      <RefreshCw className="w-4 h-4 text-primary animate-spin" />
                     </div>
                   ) : (
                     <strong className="text-emerald-400 block text-sm font-bold mt-1">{formatCurrency(totalOutstanding)}</strong>
@@ -296,7 +296,7 @@ export function PaymentForm({
                     id="isBackdated"
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    className="border-slate-200 dark:border-slate-800 data-[state=checked]:bg-violet-600"
+                    className="border-input data-[state=checked]:bg-primary"
                   />
                 )}
               />
@@ -333,7 +333,7 @@ export function PaymentForm({
           {/* Allocation Preview Table */}
           {allocationPreview && (
             <div className="space-y-3 pt-4 border-t border-slate-200 dark:border-slate-800/80">
-              <span className="text-xs font-bold text-violet-400 uppercase tracking-wider block">Auto-calculated Allocation Splits</span>
+              <span className="text-xs font-bold text-primary uppercase tracking-wider block">Auto-calculated Allocation Splits</span>
               <div className="border border-slate-850 rounded-xl overflow-hidden">
                 <Table>
                   <TableHeader className="bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
@@ -378,7 +378,7 @@ export function PaymentForm({
             <Button
               type="submit"
               disabled={isSubmitting || !watchedValues.amount || parseFloat(watchedValues.amount) <= 0}
-              className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-6 shadow-lg shadow-violet-500/10"
+              className="bg-primary hover:bg-primary/95 text-white font-semibold px-6 shadow-sm"
             >
               {isSubmitting ? 'Recording Collection...' : 'Record Payment Receipt'}
             </Button>

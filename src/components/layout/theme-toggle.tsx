@@ -41,7 +41,7 @@ export function ThemeToggle() {
             animate={{ y: 0, opacity: 1, rotate: 0 }}
             exit={{ y: -15, opacity: 0, rotate: -40 }}
             transition={{ duration: 0.22, ease: 'easeOut' }}
-            className="text-violet-400"
+            className="text-brass"
           >
             <Moon className="w-[18px] h-[18px] fill-current" />
           </motion.div>
